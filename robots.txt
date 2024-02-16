@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://m.github.io/sitemap.xml
+Sitemap: https://minsuan96.github.io/sitemap.xml
