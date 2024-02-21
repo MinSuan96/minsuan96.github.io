@@ -116,3 +116,6 @@
   </div>
   {% include scripts/wechatModal.liquid %}
 {% endif %}
+{% if site.leetcode_id %}
+  <a href="https://leetcode.com/{{ site.leetcode_id }}" title="LeetCode"><i class="cib-leetcode"></i></a>
+{% endif %}
