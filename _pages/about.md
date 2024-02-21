@@ -17,8 +17,16 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-<!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Greetings! 👋 I'm a passionate individual with a love for gaming, problem-solving, and the ever-evolving world of machine learning. Let me share a bit more about the diverse facets of my interests and academic pursuits!
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Gaming Enthusiast 🎮: Whether it's navigating virtual worlds or strategizing in board games, I find joy in the challenges and excitement that games offer. Cryptid has currently claimed the title of my favorite board game, providing a perfect blend of strategy and intrigue. When not deciphering game mechanics, I'm immersed in the expansive landscapes of Genshin Impact and Honors of Kings, enjoying the unique experiences each game brings.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
+Algorithm Aficionado 💡: Algorithmic problem-solving is my forte, and I revel in tackling LeetCode problems, especially those involving dynamic programming, BFS, DFS, and more. Some notable algorithms that often grace my coding adventures include Dijkstra's algorithm, the Knapsack problem, and various graph traversal techniques.
+
+Lofi Hip-Hop Connoisseur 🎶: Amidst the code and challenges, I find solace in the soothing beats of lofi hip-hop. Slipfunc, kudasai, In Love with a Ghost, Monty Datta, and Shiloh Dynasty are my go-to musical companions, creating the perfect ambiance for both work and relaxation.
+
+Academic Explorer 📚: Armed with an MSc and BEng in Computer Science from the esteemed University of Edinburgh, my academic journey revolves around machine learning, with a particular fondness for reinforcement learning. Currently, my focus is on a cutting-edge project involving multi-agent reinforcement learning for Mahjong, with the ambitious goal of outsmarting the majority of players.
+
+Projects and Dissertations 🚀: My machine learning ventures extend to diverse projects, from Twitter sentiment analysis to human activity recognition. My MSc dissertation delved into the practical application of game theory in financial systems, aiming to optimize clearing payments through established algorithms. On the undergraduate front, I explored the theoretical realms of game theory, seeking equilibrium in a lattice with an underlying monotone function.
+
+Let's connect and delve deeper into the fascinating worlds of technology, gaming, and machine learning! Feel free to find me on LinkedIn, or explore my coding escapades on GitHub. Excited to engage with fellow enthusiasts on this incredible journey! 🚀
