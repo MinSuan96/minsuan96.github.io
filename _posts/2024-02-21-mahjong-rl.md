@@ -13,15 +13,15 @@ So, I just got back from this awesome Chinese New Year bash, and let me tell you
 
 #### The Mahjong Moment 🀄
 
-Picture this: we're knee-deep in a mahjong game, having a blast, when out of the blue, my cousin drops, "Hey, why not make an AI that plays mahjong?" Lightbulb moment! So, from a simple family game, my new mission is to create a mahjong-playing AI. How cool is that?
+Picture this: we're knee-deep in a [mahjong](https://en.wikipedia.org/wiki/Mahjong) game, having a blast, when out of the blue, my cousin drops, "Hey, why not make an AI that plays mahjong?" Lightbulb moment! So, from a simple family game, my new mission is to create a mahjong-playing AI. How cool is that?
 
 #### Reinforcement Learning Vibes 🚀
 
-Now, I'm no expert, but I've dabbled in reinforcement learning before – you know, solving games like bipedal walker and acrobot using the gymnasium library. But mahjong is a whole different ball game. Gymnasium is more of a solo player's arena, and that's when I stumbled upon PettingZoo. It's like gymnasium but for the multiplayer crew.
+Now, I'm no expert, but I've dabbled in reinforcement learning before – you know, solving games like bipedal walker and acrobot using the [gymnasium](https://gymnasium.farama.org/) library. But mahjong is a whole different ball game. Gymnasium is more of a solo player's arena, and that's when I stumbled upon [PettingZoo](https://pettingzoo.farama.org/). It's like gymnasium but for the multiplayer crew.
 
 #### Enter PettingZoo 🕹️
 
-So, PettingZoo is my new playground. My goal? Cook up a custom environment for mahjong and get my agent geared up for some serious training. Multi-agent RL is the name of the game, and PettingZoo is my partner in crime. Exciting, right?
+So, PettingZoo is my new playground. My goal? Cook up a custom environment for mahjong and get my agent geared up for some serious training. [Multi-agent Reinforcement Learning](https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning) is the name of the game, and PettingZoo is my partner in crime. Exciting, right?
 
 #### The End Game 🏆
 
