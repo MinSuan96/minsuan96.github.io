@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Gradient Descent with Python
-date: 2024-02-21
+date: 2024-02-22
 description: A little warm up before my big project.
 tags: Python
 # categories: sample-posts
-giscus_comments: true
+giscus_comments: false
 related_posts: false
 ---
 
