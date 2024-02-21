@@ -26,7 +26,7 @@ Here's a step-by-step explanation of how gradient descent is done:
 
 - Repeat: Repeat steps 2-4 until convergence or a predetermined number of iterations. Convergence occurs when the parameters reach values where further adjustments don't significantly improve the cost function.
 
-There are different variants of gradient descent, such as stochastic gradient descent (SGD) and mini-batch gradient descent, which involve using subsets of the training data for each iteration to reduce computational complexity. Additionally, more advanced optimization algorithms like Adam and RMSprop include adaptive learning rates to improve convergence speed. However, for this blog, I will only be using the basic gradient descent. Nevertheless, in this blog, I will implement the basic gradient descent.
+There are different variants of gradient descent, such as stochastic gradient descent (SGD) and mini-batch gradient descent, which involve using subsets of the training data for each iteration to reduce computational complexity. Additionally, more advanced optimization algorithms like Adam and RMSprop include adaptive learning rates to improve convergence speed. However, in this blog, I will implement the basic gradient descent.
 
 {::nomarkdown}
 {% assign jupyter_path = "assets/jupyter/gradient-descent.ipynb" | relative_url %}
