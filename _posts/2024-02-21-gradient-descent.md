@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Gradient Descent with Jupyter Notebook
+title: Gradient Descent in Jupyter Notebook
 date: 2024-02-21
 description: A little warm up before my big project.
 tags: Python
