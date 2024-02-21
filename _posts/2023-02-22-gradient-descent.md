@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Gradient Descent with Jupyter Notebook
+title: Gradient Descent with Python
 date: 2024-02-21
-description: A simple tutorial on how to implement Gradient Descent in Python.
+description: A simple tutorial on how to implement Gradient Descent in Jupyter Notebook.
 tags: Python
 # categories: sample-posts
 giscus_comments: true
