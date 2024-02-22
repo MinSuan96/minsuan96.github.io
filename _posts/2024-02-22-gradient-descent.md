@@ -2,7 +2,7 @@
 layout: post
 title: A Little Warm Up Before Mahjong RL
 date: 2024-02-22
-description: Gradient Descent in Jupyter Notebook
+description: Gradient Descent in Python with Jupyter Notebook
 tags: Python
 # categories: sample-posts
 giscus_comments: false
