@@ -1,8 +1,6 @@
 ## Overview
 
-Welcome to my personal website! This space is dedicated to sharing my journey, experiences, and projects in the field of [your field or area of interest].
-
-Visit the [site](minsuan96.github.io).
+Welcome to my personal website! This space is dedicated to sharing my journey, experiences, and projects in the field of computer science. Visit the [site](minsuan96.github.io).
 
 ## About Me
 
