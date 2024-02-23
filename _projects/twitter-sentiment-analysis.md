@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Twitter Sentiment Analysis (WIP)
-description: Analyzing Twitter sentiments through various machine learning methods, this project classifies tweets as positive or negative, offering insights into emotional expressions on the platform.
+description: Analyzing Twitter sentiments through various machine learning methods, offering insights into emotional expressions on the platform.
 img: assets/img/logo-white.png
 importance: 1
 category: work
