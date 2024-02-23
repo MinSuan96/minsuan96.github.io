@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Planning My Next Project
+title: My Upcoming Project
 date: 2024-02-21
 description: Multi-agent Reinforcement Learning for Mahjong
-tags: mahjong-rl
+tags: mahjong reinforcement-learning
 #categories: mahjong-rl
 giscus_comments: true
 ---

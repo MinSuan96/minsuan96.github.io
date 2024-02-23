@@ -103,7 +103,7 @@ zotero_username: # your zotero username
 wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 
 contact_note: >
-  Feel free to contact me at your convenience.
+  Feel free to reach out to me.
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -274,7 +274,7 @@ jekyll-archives:
     tag: "/blog/tag/:name/"
     category: "/blog/category/:name/"
 
-display_tags: ["mahjong-rl", "Python"] # ["formatting", "images", "links", "math", "code"] # these tags will be displayed on the front page of your blog
+display_tags: ["mahjong", "reinforcement-learning", "Python"] # ["formatting", "images", "links", "math", "code"] # these tags will be displayed on the front page of your blog
 display_categories: # ["blockquotes"] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
