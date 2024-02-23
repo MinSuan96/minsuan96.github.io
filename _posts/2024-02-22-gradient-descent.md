@@ -5,7 +5,7 @@ date: 2024-02-22
 description: A little warm up before my big project.
 tags: Python
 # categories: sample-posts
-giscus_comments: false
+giscus_comments: true
 related_posts: false
 ---
 

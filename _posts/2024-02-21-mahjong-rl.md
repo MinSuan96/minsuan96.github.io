@@ -5,6 +5,7 @@ date: 2024-02-21
 description: Multi-agent Reinforcement Learning for Mahjong
 tags: mahjong-rl
 #categories: mahjong-rl
+giscus_comments: true
 ---
 
 #### Hey there, Happy Chinese New Year! 🎉
