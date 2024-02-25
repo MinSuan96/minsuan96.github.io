@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Decentralized Chess on Ethereum (WIP)
+title: Decentralized Matching Pennies on Ethereum (WIP)
 description: A decentralized Matching Pennies game on the Ethereum blockchain.
 img:
 importance: 1
