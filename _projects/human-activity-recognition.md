@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Human Activity Recognition (WIP)
+title: Human Activity Recognition
 description: An application of machine learning to recognize human activities from sensor data.
 img: assets/img/TF_FullColor_Icon.png
 importance: 1
-category: work
+category: completed
 related_publications: false
 ---

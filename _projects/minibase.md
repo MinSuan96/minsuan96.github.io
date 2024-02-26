@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Minibase (WIP)
+title: Minibase
 description: A lightweight Database Engine in Java.
 img: assets/img/database-management.png
 importance: 1
-category: work
+category: completed
 related_publications: false
 ---

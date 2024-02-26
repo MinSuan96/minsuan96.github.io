@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Decentralized Matching Pennies on Ethereum (WIP)
+title: Decentralized Matching Pennies on Ethereum
 description: A decentralized Matching Pennies game on the Ethereum blockchain.
 img:
 importance: 3
-category: work
+category: completed
 related_publications: false
 ---
