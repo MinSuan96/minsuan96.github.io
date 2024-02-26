@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Decentralized Chess on Ethereum
+title: Decentralized Chess
 description: A decentralized chess game on the Ethereum blockchain.
 img: assets/img/chess.png
 importance: 2
