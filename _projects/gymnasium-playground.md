@@ -28,9 +28,26 @@ The system evolves over time, with the agent selecting actions in different stat
 
 ## Setting up the Environment
 
-A base class for MDP is created. The class has several class variables and class functions.
+A class for MDP is created. The class has several class variables and class functions.
 
-
+```python
+    mdp = MDP()
+    mdp.add_transition(        
+        #         start action end prob reward
+        Transition("s0", "a0", "s1", 0.4, 5),
+        Transition("s0", "a0", "s2", 0.6, -3),
+        Transition("s0", "a1", "s1", 0.3, 2),
+        Transition("s0", "a1", "s2", 0.7, 1),
+        Transition("s1", "a0", "s0", 0.1, 1),
+        Transition("s1", "a0", "s2", 0.9, 2),
+        Transition("s1", "a1", "s0", 0.8, -1),
+        Transition("s1", "a1", "s2", 0.2, 4),
+        Transition("s2", "a0", "s0", 0.6, 0),
+        Transition("s2", "a0", "s1", 0.4, -5),
+        Transition("s2", "a1", "s0", 0.3, 3),
+        Transition("s2", "a1", "s1", 0.7, 2)
+    )
+```
 
 ## Solving MDPs with Dynamic Programming
 
