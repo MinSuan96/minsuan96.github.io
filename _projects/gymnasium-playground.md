@@ -28,7 +28,7 @@ The system evolves over time, with the agent selecting actions in different stat
 
 ## Setting up the Environment
 
-A class for MDP is created. The class has several class variables and class functions.
+A class for MDP is created. The class has various class variables and functions to fulfill specific roles and functionalities mentioned above.
 
 ```python
     mdp = MDP()
