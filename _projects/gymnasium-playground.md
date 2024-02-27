@@ -28,6 +28,8 @@ The system evolves over time, with the agent selecting actions in different stat
 
 ## Setting up the Environment
 
+A base class for MDP is created. The class has several class variables and class functions.
+
 
 
 ## Solving MDPs with Dynamic Programming
