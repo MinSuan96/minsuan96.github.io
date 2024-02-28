@@ -6,6 +6,7 @@ description: Multi-agent Reinforcement Learning for Mahjong
 tags: mahjong reinforcement-learning
 #categories: mahjong-rl
 giscus_comments: true
+related_posts: true
 ---
 
 #### Hey there, Happy Chinese New Year! 🎉

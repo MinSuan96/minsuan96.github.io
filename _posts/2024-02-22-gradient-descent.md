@@ -6,7 +6,7 @@ description: Gradient Descent in Python with Jupyter Notebook
 tags: Python
 # categories: sample-posts
 giscus_comments: true
-related_posts: false
+related_posts: true
 ---
 
 Before delving directly into the algorithm, let me provide a brief explanation of what [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) entails. Gradient descent is an optimization algorithm commonly used in machine learning and numerical optimization to minimize a function. The main idea behind gradient descent is to iteratively adjust the parameters of a model in the direction that reduces the value of a cost function.
