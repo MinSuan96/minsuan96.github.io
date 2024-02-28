@@ -10,3 +10,6 @@ related_publications: false
 
 *Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning course](https://opencourse.inf.ed.ac.uk/rl) at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
+# Taxi
+
+
