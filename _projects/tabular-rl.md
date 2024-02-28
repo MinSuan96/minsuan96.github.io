@@ -13,7 +13,7 @@ related_publications: false
 # Taxi-v3
 
 <div class="row">
-    <div class="col align-self-center">
+    <div class="col-6 align-self-center">
         {% include figure.liquid path="assets/img/taxi_50.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
