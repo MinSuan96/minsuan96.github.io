@@ -14,7 +14,7 @@ related_publications: false
 
 <div class="row">
     <div class="col align-self-center">
-        {% include figure.liquid path="assets/img/taxi.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/taxi_50.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
