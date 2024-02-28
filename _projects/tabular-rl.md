@@ -13,7 +13,7 @@ related_publications: false
 # Taxi-v3
 
 <div class="row justify-content-center">
-    <div class="col-md-auto">
+    <div class="col-sm-6">
         {% include figure.liquid path="assets/img/taxi_50.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
@@ -22,4 +22,4 @@ The presented environment is part of the Toy Text environments in [Gymnasium](ht
 
 ## Setting up the Environment
 
-
+te
