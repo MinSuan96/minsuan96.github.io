@@ -12,7 +12,7 @@ related_publications: false
 
 # Markov Decision Process
 
-A Markov Decision Process is a mathematical framework used to model decision-making in situations where outcomes are uncertain. It consists of the following key components:
+A [Markov Decision Process](https://en.wikipedia.org/wiki/Markov_decision_process)(MDP) is a mathematical framework used to model decision-making in situations where outcomes are uncertain. It consists of the following key components:
 
 1. **States (S)**: A set of possible situations or conditions that the system can be in.
 2. **Actions (A)**: A set of possible moves or decisions that an agent can take.
