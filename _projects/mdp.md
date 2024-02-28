@@ -116,5 +116,37 @@ class PolicyIteration(MDPSolver):
 
 ## Solving MDP with Dynamic Programming
 
+Now, determining the optimal policy and value function for a MDP is simplified by instantiating the ```ValueIteration``` and ```PolicyIteration``` classes.
 
+```python
+ValueIterationSolver = ValueIteration(mdp, gamma=0.8)
+policy, valuefunc = ValueIterationSolver.solve()
+print("---Value Iteration---")
+print("Policy:")
+print(ValueIterationSolver.decode_policy(policy))
+print("Value Function")
+print(valuefunc)
 
+PolicyIterationSolver = PolicyIteration(mdp, gamma=0.8)
+policy, valuefunc = PolicyIterationSolver.solve()
+print("---Policy Iteration---")
+print("Policy:")
+print(PolicyIterationSolver.decode_policy(policy))
+print("Value Function")
+print(valuefunc)
+```
+
+The following code displays the optimal policy and value function obtained using the implemented algorithms for Value Iteration and Policy Iteration.
+
+```python
+---Value Iteration---
+Policy:
+{'s2': 'a1', 's1': 'a0', 's0': 'a1'}
+Value Function
+[10.08793146  9.90951174  9.32752364]
+---Policy Iteration---
+Policy:
+{'s2': 'a1', 's1': 'a0', 's0': 'a1'}
+Value Function
+[10.08793146  9.90951174  9.32752364]
+```
