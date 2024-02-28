@@ -13,9 +13,7 @@ related_publications: false
 # Taxi
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/taxi_50.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
-    </div>
+    {% include figure.liquid path="assets/img/taxi_50.gif" title="Render of Taxi-v3" class="img-fluid rounded z-depth-1" %}
 </div>
 <div class="caption">
     Render of Taxi-v3
