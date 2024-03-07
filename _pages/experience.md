@@ -2,64 +2,51 @@
 layout: page
 title: experiences
 permalink: /experiences/
-description: Here's where I showcase my experiences.
+description: Here's where I tell more about my experiences.
 nav: true
-nav_order: 3
-display_categories: [current, past]
-horizontal: true
+nav_order: 2
 ---
 
-<!-- pages/projects.md -->
-<div class="experiences">
-{% if site.enable_project_categories and page.display_categories %}
-  <!-- Display categorized projects -->
-  {% for category in page.display_categories %}
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="category">{{ category }}</h2>
-  </a>
-  {% assign categorized_projects = site.projects | where: "category", category %}
-  {% assign sorted_projects = categorized_projects | sort: "importance" %}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
+# Current Experiences
+
+## Global Software Service Engineer
+
+| Job Title | Global Software Engineer                                               |
+| --------- | ---------------------------------------------------------------------- |
+| Company   | [Huawei Technologies (Malaysia) Sdn. Bhd.](https://www.huawei.com/my/) |
+| Location  | Kuala Lumpur, Malaysia                                                 |
+| Date      | 18<sup>th</sup> December 2023 - Present                                |
+|           |                                                                        |
+
+### Job Scope
+
+???
+
+### Certificates Obtained
+
+<div class="row justify-content-center">
+    <div class="col-md-auto">
+        {% include figure.liquid path="assets/img/ppcc.png" class="img-fluid rounded z-depth-1" %}
     </div>
-  </div>
-  {% else %}
-  <div class="grid">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% endfor %}
-
-{% else %}
-
-<!-- Display projects without categories -->
-
-{% assign sorted_projects = site.projects | sort: "importance" %}
-
-  <!-- Generate cards for each project -->
-
-{% if page.horizontal %}
-
-  <div class="container">
-    <div class="row row-cols-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
+    <div class="col-md-auto">
+        {% include figure.liquid path="assets/img/cyber-security.png" class="img-fluid rounded z-depth-1" %}
     </div>
-  </div>
-  {% else %}
-  <div class="grid">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endif %}
+    <div class="col-md-auto">
+        {% include figure.liquid path="assets/img/remote-delivery.png" class="img-fluid rounded z-depth-1" %}
+    </div>
 </div>
+
+# Past Experiences
+
+## Java Tutor and Marker
+
+| Job Title | Java Tutor and Marker                                   |
+| --------- | ------------------------------------------------------- |
+| Company   | [The University of Edinburgh](https://www.ed.ac.uk/)    |
+| Location  | Edinburgh, United Kingdom                               |
+| Date      | 23<sup>th</sup> January 2023 - 31<sup>th</sup> May 2023 |
+|           |                                                         |
+
+### Job Scope
+
+???
