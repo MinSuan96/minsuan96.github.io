@@ -173,6 +173,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  experiences:
+    output: true
+    permalink: /experiences/:path/
 
 announcements:
   enabled: true
