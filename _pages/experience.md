@@ -25,13 +25,13 @@ nav_order: 2
 ### Certificates Obtained
 
 <div class="row justify-content-center">
-    <div class="col-md-auto">
+    <div class="col-sm-6">
         {% include figure.liquid path="assets/img/ppcc.png" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-md-auto">
+    <div class="col-sm-6">
         {% include figure.liquid path="assets/img/cyber-security.png" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-md-auto">
+    <div class="col-sm-6">
         {% include figure.liquid path="assets/img/remote-delivery.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
