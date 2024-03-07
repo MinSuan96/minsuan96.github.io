@@ -20,22 +20,6 @@ nav_order: 2
 
 ???
 
-## Certificates Obtained
-
-<div class="row justify-content-center">
-    <div class="col-sm-4">
-        {% include figure.liquid path="assets/img/ppcc.png" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4">
-        {% include figure.liquid path="assets/img/cyber-security.png" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="col-sm-auto">
-        {% include figure.liquid path="assets/img/remote-delivery.png" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
 # Java Tutor and Marker
 
 | Job Title: | Java Tutor and Marker                                   |
