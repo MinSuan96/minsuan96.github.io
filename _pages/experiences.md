@@ -5,7 +5,7 @@ permalink: /experiences/
 description: Here's where I tell my past and current experiences.
 nav: true
 nav_order: 2
-display_categories: [past, current]
+display_categories: [current, past]
 horizontal: false
 ---
 
