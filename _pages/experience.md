@@ -36,8 +36,6 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 2. Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
 3. GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
 
-
-
 # Java Tutor and Marker
 
 | Job Title: |   | Java Tutor and Marker                                   |
