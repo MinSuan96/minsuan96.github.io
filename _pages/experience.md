@@ -16,25 +16,25 @@ nav_order: 2
 | Date:      |   | 18<sup>th</sup> December 2023 - Present                                |
 |            |   |                                                                        |
 
-### Job Scope
+## Job Scope
 
 Embarking on my role as a Global Software Service Engineer at Huawei's Global Service Resource Center (GSRC) in Malaysia has been an immersive journey, defined by continuous learning and impactful contributions.
 
-##### Initial Learning and Certification
+### Initial Learning and Certification
 
 In my first week, I undertook a comprehensive series of learning modules and assessments, successfully earning certifications in key areas, including Information Security, Cyber Security, and Privacy Protection. These certifications, including the Pre-Position Competence Certificate, Cyber Security Certificate for Service Work, and Remote Delivery Certificate, laid a strong foundation for my subsequent endeavors.
 
-##### Project Involvement - CelcomDigi Harmonization
+### Project Involvement - CelcomDigi Harmonization
 
 Assigned to a transformative project involving the harmonization of [Celcom](https://www.celcom.com.my/) and [Digi](https://www.digi.com.my/), two major network operators in Malaysia undergoing a merger, I delved into the intricacies of the [Convergent Billing System (CBS)](https://carrier.huawei.com/en/products/service-and-software/software-business). The project aimed at updating the existing CBS to a new, unified system, consolidating functionalities from both companies. In the first month, I actively engaged in understanding the CBS architecture while concurrently contributing to the design of the harmonized business processes for [CelcomDigi](https://www.celcomdigi.com/).
 
-##### Role Evolution - Testing CBS System
+### Role Evolution - Testing CBS System
 
 Transitioning to a more hands-on role, I am currently spearheading the testing phase of the harmonized and updated CBS system. This involves a versatile approach, including:
 
-- HTTP Request Testing: Crafting and sending HTTP requests to various system interfaces, meticulously verifying responses to ensure correctness.
-- Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
-- GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
+1. HTTP Request Testing: Crafting and sending HTTP requests to various system interfaces, meticulously verifying responses to ensure correctness.
+2. Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
+3. GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
 
 
 
@@ -47,7 +47,7 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 | Date:      |   | 23<sup>th</sup> January 2023 - 31<sup>th</sup> May 2023 |
 |            |   |                                                         |
 
-### Job Scope
+## Job Scope
 
 During my time as a student at the University of Edinburgh, I had an opportunity to contribute to become a teaching assistant as a Java Tutor and Marker for a [first-year informatics course](http://www.drps.ed.ac.uk/20-21/dpt/cxinfr08029.htm). This role, which I undertook with enthusiasm and dedication, allowed me to develop not only a deep understanding of Java programming but also honed my communication and mentorship skills.
 
