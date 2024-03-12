@@ -49,7 +49,7 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 
 ### Job Scope
 
-During my time as a student at the University of Edinburgh, I had an opportunity to contribute to become a teaching assistant as a Java Tutor and Marker for a [first-year informatics course](http://www.drps.ed.ac.uk/20-21/dpt/cxinfr08029.htm). This role, which I undertook with enthusiasm and dedication, allowed me to develop not only a deep understanding of Java programming but also honed my communication and mentorship skills.
+During my time as a student at the University of Edinburgh, I had an opportunity to become a teaching assistant as a Java Tutor and Marker for a [first-year informatics course](http://www.drps.ed.ac.uk/20-21/dpt/cxinfr08029.htm). This role, which I undertook with enthusiasm and dedication, allowed me to develop not only a deep understanding of Java programming but also honed my communication and mentorship skills.
 
 1. Tutorial Sessions:
     - Conducted weekly tutorial sessions for a group of 10 first-year informatics students.
