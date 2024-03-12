@@ -63,4 +63,3 @@ During my time as a student at the University of Edinburgh, I had an opportunity
     - Emphasized the importance of pre-session preparation, requiring students to read and complete tutorials beforehand.
     - Facilitated discussions during sessions, providing a platform for students to ask questions and seek clarification.
     - Offered personalized feedback on both tutorial answers and coursework submissions, guiding students on areas of improvement.
-
