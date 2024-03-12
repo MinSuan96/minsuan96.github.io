@@ -27,7 +27,7 @@ In my first week, I undertook a comprehensive series of learning modules and ass
 
 #### Project Involvement - CelcomDigi Harmonization
 
-Assigned to a transformative project involving the harmonization of [Celcom](https://www.celcom.com.my/) and [Digi](https://www.digi.com.my/), two major network operators in Malaysia undergoing a [merger](https://www.celcom.com.my/celcom-digi-merger), I delved into the intricacies of Huawei's [Convergent Billing System (CBS)](https://carrier.huawei.com/en/products/service-and-software/software-business). The project aimed at updating the existing CBS to a new, unified system, consolidating functionalities from both companies. In the first month, I actively engaged in understanding the CBS architecture while concurrently contributing to the design of the harmonized business processes for [CelcomDigi](https://www.celcomdigi.com/).
+As part of a transformative project, I am assigned to harmonize the operations of [Celcom](https://www.celcom.com.my/) and [Digi](https://www.digi.com.my/), two major network operators in Malaysia, who are undergoing a [merger](https://www.celcom.com.my/celcom-digi-merger). I am involved in gaining a deep understanding of Huawei's [Convergent Billing System (CBS)](https://carrier.huawei.com/en/products/service-and-software/software-business) because the project aims to update it to a new, unified system, consolidating functionalities from both companies. In the first month, I actively engaged in understanding the CBS architecture while concurrently contributing to the design of the harmonized business processes for [CelcomDigi](https://www.celcomdigi.com/).
 
 #### Role Evolution - Testing CBS System
 
