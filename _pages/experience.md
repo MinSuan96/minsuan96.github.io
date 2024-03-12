@@ -9,7 +9,7 @@ nav_order: 2
 
 # Current Experience
 
-## Global Software Service Engineer at Huawei Technologies (Malaysia) Sdn. Bhd.
+## Global Software Service Engineer
 
 | Job Title: |   | Global Software Service Engineer                                       |
 | ---------  | - | ---------------------------------------------------------------------- |
@@ -39,7 +39,7 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 
 # Past Experience
 
-## Java Tutor and Marker at The University of Edinburgh
+## Java Tutor and Marker
 
 | Job Title: |   | Java Tutor and Marker                                   |
 | ---------  | - | ------------------------------------------------------- |
