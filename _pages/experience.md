@@ -9,6 +9,8 @@ nav_order: 2
 
 # Current Experience
 
+## Global Software Service Engineer at Huawei Technologies (Malaysia) Sdn. Bhd.
+
 | Job Title: |   | Global Software Service Engineer                                       |
 | ---------  | - | ---------------------------------------------------------------------- |
 | Company:   |   | [Huawei Technologies (Malaysia) Sdn. Bhd.](https://www.huawei.com/my/) |
@@ -37,6 +39,8 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 3. GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
 
 # Past Experience
+
+## Java Tutor and Marker at The University of Edinburgh
 
 | Job Title: |   | Java Tutor and Marker                                   |
 | ---------  | - | ------------------------------------------------------- |
