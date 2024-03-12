@@ -2,7 +2,7 @@
 layout: page
 title: experiences
 permalink: /experiences/
-description: Here's where I tell more about my experiences.
+description: Here's where I talk about my experiences.
 nav: true
 nav_order: 2
 ---
