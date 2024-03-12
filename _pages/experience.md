@@ -30,7 +30,7 @@ Assigned to a transformative project involving the harmonization of [Celcom](htt
 
 #### Role Evolution - Testing CBS System
 
-Transitioning to a more hands-on role, I am currently spearheading the testing phase of the harmonized and updated CBS system. This involves a versatile approach, including:
+Transitioning to a more hands-on role, I am currently spearheading the testing phase of the harmonized and updated CBS. This involves a versatile approach, including:
 
 1. HTTP Request Testing: Crafting and sending HTTP requests to various system interfaces, thoroughly verifying responses to ensure correctness.
 2. Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
