@@ -7,9 +7,7 @@ nav: true
 nav_order: 2
 ---
 
-# Current Experience
-
-## Global Software Service Engineer
+# Global Software Service Engineer
 
 | Job Title: |   | Global Software Service Engineer                                       |
 | ---------  | - | ---------------------------------------------------------------------- |
@@ -37,9 +35,9 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 2. Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
 3. GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
 
-# Past Experience
+---
 
-## Java Tutor and Marker
+# Java Tutor and Marker
 
 | Job Title: |   | Java Tutor and Marker                                   |
 | ---------  | - | ------------------------------------------------------- |
