@@ -9,7 +9,7 @@ nav_order: 2
 
 # Global Software Service Engineer
 
-| Job Title: |   | Global Software Engineer                                               |
+| Job Title: |   | Global Software Service Engineer                                       |
 | ---------  | - | ---------------------------------------------------------------------- |
 | Company:   |   | [Huawei Technologies (Malaysia) Sdn. Bhd.](https://www.huawei.com/my/) |
 | Location:  |   | Kuala Lumpur, Malaysia                                                 |
