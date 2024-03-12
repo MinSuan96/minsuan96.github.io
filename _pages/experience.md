@@ -26,13 +26,13 @@ In my first week, I undertook a comprehensive series of learning modules and ass
 
 ### Project Involvement - CelcomDigi Harmonization
 
-Assigned to a transformative project involving the harmonization of [Celcom](https://www.celcom.com.my/) and [Digi](https://www.digi.com.my/), two major network operators in Malaysia undergoing a merger, I delved into the intricacies of the [Convergent Billing System (CBS)](https://carrier.huawei.com/en/products/service-and-software/software-business). The project aimed at updating the existing CBS to a new, unified system, consolidating functionalities from both companies. In the first month, I actively engaged in understanding the CBS architecture while concurrently contributing to the design of the harmonized business processes for [CelcomDigi](https://www.celcomdigi.com/).
+Assigned to a transformative project involving the harmonization of [Celcom](https://www.celcom.com.my/) and [Digi](https://www.digi.com.my/), two major network operators in Malaysia undergoing a [merger](https://www.celcom.com.my/celcom-digi-merger), I delved into the intricacies of Huawei's [Convergent Billing System (CBS)](https://carrier.huawei.com/en/products/service-and-software/software-business). The project aimed at updating the existing CBS to a new, unified system, consolidating functionalities from both companies. In the first month, I actively engaged in understanding the CBS architecture while concurrently contributing to the design of the harmonized business processes for [CelcomDigi](https://www.celcomdigi.com/).
 
 ### Role Evolution - Testing CBS System
 
 Transitioning to a more hands-on role, I am currently spearheading the testing phase of the harmonized and updated CBS system. This involves a versatile approach, including:
 
-1. HTTP Request Testing: Crafting and sending HTTP requests to various system interfaces, meticulously verifying responses to ensure correctness.
+1. HTTP Request Testing: Crafting and sending HTTP requests to various system interfaces, thoroughly verifying responses to ensure correctness.
 2. Database Manipulation: Leveraging SQL skills for querying and updating the database, crucial for validating the system's functionality.
 3. GUI Interface Testing: Directly engaging with the CBS GUI interface to assess and validate the overall performance and features of the system.
 
