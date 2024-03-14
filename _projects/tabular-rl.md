@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tabular Reinforcement Learning
-description: Solving Taxi-v3 using Q-Learning and On-policy first-visit Monte Carlo
+description: Solving Taxi-v3 using Q-Learning and On-Policy First Visit Monte Carlo
 img: assets/img/taxi_50.gif
 importance: 1
 category: completed
@@ -18,8 +18,83 @@ related_publications: false
     </div>
 </div>
 
-The presented environment is part of the Toy Text environments in [Gymnasium](https://gymnasium.farama.org/), specifically the [Taxi-v3](https://gymnasium.farama.org/environments/toy_text/taxi/) environment. In this 5x5 grid world, the taxi must navigate to passengers at four designated locations (Red, Green, Yellow, and Blue), pick them up, and drop them off at their desired destinations. The action space is discrete with six possible actions, including movement in different directions, picking up, and dropping off passengers. There are 500 discrete states, considering taxi positions, passenger locations, and destination locations. The episode starts randomly, and rewards are given for successful passenger drop-offs, with penalties for incorrect pickup/drop-off actions. The episode ends when the passenger is dropped off or after 200 steps.
+The presented environment is part of the Toy Text environments in [Gymnasium](https://gymnasium.farama.org/), specifically the [Taxi-v3](https://gymnasium.farama.org/environments/toy_text/taxi/) environment. In this 5x5 grid world, the taxi must navigate to passengers at four designated locations (Red, Green, Yellow, and Blue), pick them up, and drop them off at their desired destinations. The action space is discrete with six possible actions, including movement in different directions, picking up, and dropping off passengers. There are 500 discrete states, considering taxi positions, passenger locations, and destination locations. The episode starts randomly, and rewards are given for successful passenger drop-offs, with penalties for incorrect pickup/drop-off actions. The episode ends when the passenger is dropped off or after 200 steps. This project uses Q-Learning and On-Policy First Visit Monte Carlo to solve the given environment.
 
-## Setting up the Environment
+## Setting up the Agent
+
+An abstract class, `Agent`, for the agent has been implemented as a base class for both the Q-learning agent and the Monte Carlo agent. It consists of a total of four functions, two of which are abstract.
+
+```python
+class Agent(ABC):
+    def __init__(
+        self,
+        action_space: Space,
+        obs_space: Space,
+        gamma: float,
+        epsilon: float,
+        **kwargs
+    )
+    def act(self, obs: int) -> int
+    @abstractmethod
+    def schedule_hyperparameters(self, timestep: int, max_timestep: int)
+    @abstractmethod
+    def learn(self)
+```
+
+The `__init__` function initializes the basic variables of the class, including:
+- `action_space`: action space of the environment
+- `obs_space`: observation space of the environment
+- `gamma`: discount factor
+- `epsilon`: epsilon for epsilon-greedy action selection
+- `n_acts`: number of actions
+- `q_table`: table for Q-values mapping pairs of observations and actions to respective Q-values
+
+The `act` function takes an observation as input and uses epsilon-greedy selection to return the index of the selected action. Before each episode, the `schedule_hyperparameters` function is called to adjust epsilon. It takes current timestep at the beginning of the episode and the maximum timesteps that the training loop will run for as arguments. The `learn` function updates the Q-table based on the agent's experience.
+
+### Q-Learning Agent
+
+A class, `QLearningAgent`, that inherits from `Agent` has been implemented as the Q-Learning agent.
+
+```python
+class QLearningAgent(Agent):
+    def __init__(self, alpha: float, **kwargs)
+    def schedule_hyperparameters(self, timestep: int, max_timestep: int)
+    def learn(
+        self, obs: int, action: int, reward: float, n_obs: int, done: bool
+    ) -> float
+```
+
+The `__init__` function initializes an additional variable called `alpha` which represents the learning rate of the agent. The `schedule_hyperparameters` function uses linear decay to adjust epsilon, using a different gradient and minumum compared to those used in the Monte Carlo agent. The `learn` function takes several arguments as input, including:
+- `obs`: received observation representing the current environmental state
+- `action`: index of applied action
+- `reward`: received reward
+- `n_obs`: received observation representing the next environmental state
+- `done`: flag indicating whether a terminal state has been reached
+
+Then, it implements the Q-Learning algorithm to return the updated Q-value for current observation-action pair.
+
+### Monte Carlo Agent
+
+A class, `MonteCarloAgent`, that inherits from `Agent` has been implemented as the Monte Carlo agent.
+
+```python
+class MonteCarloAgent(Agent):
+    def __init__(self, **kwargs)
+    def schedule_hyperparameters(self, timestep: int, max_timestep: int)
+    def learn(
+        self, obses: List[int], actions: List[int], rewards: List[float]
+    ) -> Dict
+```
+
+The `__init__` function initializes an additional variable called `sa_counts` which is a dicionary used to count occurrences observation-action pairs. The `schedule_hyperparameters` function uses linear decay to adjust epsilon, using a different gradient and minumum compared to those used in the Q-Learning agent. The `learn` function takes several arguments as input, including:
+- `obses`: list of received observations representing environmental states of trajectory (in the order they were encountered)
+- `actions`: list of indices of applied actions in trajectory (in the order they were applied)
+- `rewards`: list of received rewards during trajectory (in the order they were received)
+
+Then, it implements the On-Policy First Visit Monte Carlo algorithm to return a dictionary containing the updated Q-value of all the updated state-action pairs indexed by the state action pair.
+
+## Training the Agent
+
+### Using Q-Learning
 
 

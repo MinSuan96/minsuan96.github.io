@@ -82,7 +82,7 @@ The following represents the transition table for the example.
 
 Two dynamic programming algorithms, namely value iteration and policy iteration, are used to solve Markov Decision Processes (MDPs).
 
-A class called ```MDPSolver``` has been implemented as an abstract class for the mentioned algorithms. This class includes a constructor, a class function, and an abstract function.
+A class called `MDPSolver` has been implemented as an abstract class for the mentioned algorithms. This class includes a constructor, a class function, and an abstract function.
 
 ```python
 class MDPSolver(ABC):
@@ -94,7 +94,7 @@ class MDPSolver(ABC):
 
 ### Value Iteration
 
-The Value Iteration algorithm is implemented as ```ValueIteration(MDPSolver)```. This implementation includes three functions, with one of them specifically implementing the ```solve``` function inherited from its parent class.
+The Value Iteration algorithm is implemented as `ValueIteration(MDPSolver)`. This implementation includes three functions, with one of them specifically implementing the `solve` function inherited from its parent class.
 
 ```python
 class ValueIteration(MDPSolver):
@@ -105,7 +105,7 @@ class ValueIteration(MDPSolver):
 
 ### Policy Iteration
 
-The Policy Iteration algorithm is implemented as ```PolicyIteration(MDPSolver)```. This implementation includes three functions, with one of them specifically implementing the ```solve``` function inherited from its parent class.
+The Policy Iteration algorithm is implemented as `PolicyIteration(MDPSolver)`. This implementation includes three functions, with one of them specifically implementing the `solve` function inherited from its parent class.
 
 ```python
 class PolicyIteration(MDPSolver):
@@ -116,7 +116,7 @@ class PolicyIteration(MDPSolver):
 
 ## Solving MDP with Dynamic Programming
 
-Now, determining the optimal policy and value function for a MDP is simplified by instantiating the ```ValueIteration``` and ```PolicyIteration``` classes.
+Now, determining the optimal policy and value function for a MDP is simplified by instantiating the `ValueIteration` and `PolicyIteration` classes.
 
 ```python
 ValueIterationSolver = ValueIteration(mdp, gamma=0.8)
