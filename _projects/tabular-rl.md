@@ -20,6 +20,8 @@ related_publications: false
 
 The presented environment is part of the Toy Text environments in [Gymnasium](https://gymnasium.farama.org/), specifically the [Taxi-v3](https://gymnasium.farama.org/environments/toy_text/taxi/) environment. In this 5x5 grid world, the taxi must navigate to passengers at four designated locations (Red, Green, Yellow, and Blue), pick them up, and drop them off at their desired destinations. The action space is discrete with six possible actions, including movement in different directions, picking up, and dropping off passengers. There are 500 discrete states, considering taxi positions, passenger locations, and destination locations. The episode starts randomly, and rewards are given for successful passenger drop-offs, with penalties for incorrect pickup/drop-off actions. The episode ends when the passenger is dropped off or after 200 steps. This project uses Q-Learning and On-Policy First Visit Monte Carlo to solve the given environment.
 
+---
+
 ## Setting up the Agent
 
 An abstract class, `Agent`, for the agent has been implemented as a base class for both the Q-learning agent and the Monte Carlo agent. It consists of a total of four functions, two of which are abstract.
@@ -92,6 +94,8 @@ The `__init__` function initializes an additional variable called `sa_counts` wh
 - `rewards`: list of received rewards during trajectory (in the order they were received)
 
 Then, it implements the On-Policy First Visit Monte Carlo algorithm to return a dictionary containing the updated Q-value of all the updated state-action pairs indexed by the state action pair.
+
+---
 
 ## Training the Agent
 

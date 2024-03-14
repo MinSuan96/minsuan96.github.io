@@ -22,6 +22,8 @@ A [Markov Decision Process](https://en.wikipedia.org/wiki/Markov_decision_proces
 
 The system evolves over time, with the agent selecting actions in different states, transitioning to new states, and receiving rewards. The goal is to find an optimal policy that maximizes the expected cumulative reward over time.
 
+---
+
 ## Setting up the Environment
 
 A class for MDP has been implemented. This class incorporates various class variables and functions, serving distinct roles and functionalities as detailed earlier.
@@ -78,6 +80,8 @@ The following represents the transition table for the example.
 |   s2  |   a1   |  s0 |     0.3     |    3   |
 |   s2  |   a1   |  s1 |     0.7     |    2   |
 
+---
+
 ## Dynamic Programming
 
 Two dynamic programming algorithms, namely value iteration and policy iteration, are used to solve Markov Decision Processes (MDPs).
@@ -113,6 +117,8 @@ class PolicyIteration(MDPSolver):
     def _policy_improvement(self) -> Tuple[np.ndarray, np.ndarray]
     def solve(self, theta: float = 1e-6) -> Tuple[np.ndarray, np.ndarray]
 ```
+
+---
 
 ## Solving MDP with Dynamic Programming
 
