@@ -1,7 +1,7 @@
 ---
 layout: page
-title: experiences
-permalink: /experiences/
+title: extras
+permalink: /extras/
 description: Here's where the fun happens.
 nav: true
 nav_order: 5
