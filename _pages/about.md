@@ -32,14 +32,3 @@ Lofi Hip-Hop Connoisseur 🎶: Amidst the code and challenges, I find solace in 
 Let's connect and delve deeper into the fascinating worlds of technology, gaming, and music! Feel free to find me on [LinkedIn](https://www.linkedin.com/in/minsuan-teh-8a0a31199/), or explore my coding escapades on [GitHub](https://github.com/MinSuan96). Excited to engage with fellow enthusiasts on this incredible journey! 🚀
 
 ---
-
-<iframe
-  title="fx"
-  src="https://wise.com/gb/currency-converter/fx-widget/converter?sourceCurrency=GBP&targetCurrency=MYR&amount=1"
-  height=210
-  width=auto
-  frameBorder="0"
-  allowtransparency="true"
-></iframe>
-
----
