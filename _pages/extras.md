@@ -15,7 +15,7 @@ Here's a currency converter that's easy for me to access and use.
         title="fx"
         src="https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=GBP&targetCurrency=MYR"
         height=570
-        width=370
+        width=770
         frameBorder="0"
         allowtransparency="true">
         </iframe>
