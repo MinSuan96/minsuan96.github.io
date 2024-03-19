@@ -214,22 +214,16 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-auto">
-            {% include figure.liquid path="assets/img/taxi_q1000.gif" class="img-fluid rounded z-depth-1" %}
-        </div>
-        <div class="caption">
-            Q-Learning Agent trained with 1000 episodes.
+            {% include figure.liquid path="assets/img/taxi-q1000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
         <div class="col-sm-auto">
-            {% include figure.liquid path="assets/img/taxi_q2000.gif" class="img-fluid rounded z-depth-1" %}
-        </div>
-        <div class="caption">
-            Q-Learning Agent trained with 2000 episodes.
+            {% include figure.liquid path="assets/img/taxi-q2000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
         <div class="col-sm-auto">
-            {% include figure.liquid path="assets/img/taxi_q10000.gif" class="img-fluid rounded z-depth-1" %}
+            {% include figure.liquid path="assets/img/taxi-q10000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
-        <div class="caption">
-            Q-Learning Agent trained with 10000 episodes.
-        </div>
+    </div>
+    <div class="caption">
+        Q-Learning Agent trained with 1000, 2000 and 10000 episodes.
     </div>
 </div>
