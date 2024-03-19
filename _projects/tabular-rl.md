@@ -165,7 +165,7 @@ def train(env, config, output=True)
 
 This function uses `utils.evaluate` to evaluate the configuration of Q-learning on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
 
-On the other hand, `train` accepts 3 parameters as its arguments which are:
+On the other hand, `train` accepts 3 parameters as its arguments, which are:
 - env: environment to execute evaluation on
 - config: configuration dictionary containing hyperparameters
 - output: flag if mean evaluation results should be printed
@@ -197,7 +197,7 @@ def train(env, config)
 
 This function uses `utils.evaluate` to evaluate the configuration of Monte Carlo on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
 
-On the other hand, `train` accepts 2 parameters as its arguments which are:
+On the other hand, `train` accepts 2 parameters as its arguments, which are:
 - env: environment to execute evaluation on
 - config: configuration dictionary containing hyperparameters
 
