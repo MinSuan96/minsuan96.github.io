@@ -2,7 +2,7 @@
 layout: page
 title: Tabular Reinforcement Learning
 description: Solving Taxi-v3 using Q-Learning and On-Policy First Visit Monte Carlo
-img: assets/img/taxi_50.gif
+img: assets/img/taxi.gif
 importance: 1
 category: completed
 related_publications: false
@@ -25,7 +25,7 @@ related_publications: false
 
 <div class="row justify-content-center">
     <div class="col-md-auto">
-        {% include figure.liquid path="assets/img/taxi_50.gif" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/taxi.gif" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -211,13 +211,13 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-auto">
+        <div class="col-sm-4">
             {% include figure.liquid path="assets/img/taxi-q1000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-4">
             {% include figure.liquid path="assets/img/taxi-q2000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-4">
             {% include figure.liquid path="assets/img/taxi-q10000.gif" class="img-fluid rounded z-depth-1" %}
         </div>
     </div>
