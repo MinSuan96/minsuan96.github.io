@@ -10,6 +10,14 @@ related_publications: false
 
 *Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
+- [Markov Decision Process](#markov-decision-process)
+- [Setting up the Environment](#setting-up-the-environment)
+- [Dynamic Programming](#dynamic-programming)
+  - [Value Iteration](#value-iteration)
+  - [Policy Iteration](#policy-iteration)
+- [Solving MDP with Dynamic Programming](#solving-mdp-with-dynamic-programming)
+
+
 # Markov Decision Process
 
 A [Markov Decision Process](https://en.wikipedia.org/wiki/Markov_decision_process)(MDP) is a mathematical framework used to model decision-making in situations where outcomes are uncertain. It consists of the following key components:
@@ -24,7 +32,7 @@ The system evolves over time, with the agent selecting actions in different stat
 
 ---
 
-## Setting up the Environment
+# Setting up the Environment
 
 A class for MDP has been implemented. This class incorporates various class variables and functions, serving distinct roles and functionalities as detailed earlier.
 
@@ -82,7 +90,7 @@ The following represents the transition table for the example.
 
 ---
 
-## Dynamic Programming
+# Dynamic Programming
 
 Two dynamic programming algorithms, namely value iteration and policy iteration, are used to solve Markov Decision Processes (MDPs).
 
@@ -96,7 +104,7 @@ class MDPSolver(ABC):
     def solve(self)
 ```
 
-### Value Iteration
+## Value Iteration
 
 The Value Iteration algorithm is implemented as `ValueIteration(MDPSolver)`. This implementation includes three functions, with one of them specifically implementing the `solve` function inherited from its parent class.
 
@@ -107,7 +115,7 @@ class ValueIteration(MDPSolver):
     def solve(self, theta: float = 1e-6) -> Tuple[np.ndarray, np.ndarray]
 ```
 
-### Policy Iteration
+## Policy Iteration
 
 The Policy Iteration algorithm is implemented as `PolicyIteration(MDPSolver)`. This implementation includes three functions, with one of them specifically implementing the `solve` function inherited from its parent class.
 
@@ -120,7 +128,7 @@ class PolicyIteration(MDPSolver):
 
 ---
 
-## Solving MDP with Dynamic Programming
+# Solving MDP with Dynamic Programming
 
 Now, determining the optimal policy and value function for a MDP is simplified by instantiating the `ValueIteration` and `PolicyIteration` classes.
 
