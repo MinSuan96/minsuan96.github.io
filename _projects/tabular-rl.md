@@ -10,20 +10,18 @@ related_publications: false
 
 *Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
-# Table of Contents
+- [Taxi-v3](#taxi-v3)
+- [Setting up the Agent](#setting-up-the-agent)
+  - [Q-Learning Agent](#q-learning-agent)
+  - [Monte Carlo Agent](#monte-carlo-agent)
+- [Training the Agent](#training-the-agent)
+  - [Using Q-Learning](#using-q-learning)
+  - [Using On-Policy First Visit Monte Carlo](#using-on-policy-first-visit-monte-carlo)
+- [Results](#results)
+  - [Q-Learning Agent](#q-learning-agent-1)
 
-- [Table of Contents](#table-of-contents)
-  - [Taxi-v3 ](#taxi-v3-)
-  - [Setting up the Agent ](#setting-up-the-agent-)
-    - [Q-Learning Agent ](#q-learning-agent-)
-    - [Monte Carlo Agent ](#monte-carlo-agent-)
-  - [Training the Agent ](#training-the-agent-)
-    - [Using Q-Learning ](#using-q-learning-)
-    - [Using On-Policy First Visit Monte Carlo ](#using-on-policy-first-visit-monte-carlo-)
-  - [Results \<a name="Results\>](#results-a-nameresults)
-    - [Q-Learning Agent ](#q-learning-agent--1)
 
-## Taxi-v3 <a name="introduction"></a>
+## Taxi-v3
 
 <div class="row justify-content-center">
     <div class="col-md-auto">
@@ -35,7 +33,7 @@ The presented environment is part of the Toy Text environments in [Gymnasium](ht
 
 ---
 
-## Setting up the Agent <a name="Setup"></a>
+## Setting up the Agent
 
 An abstract class, `Agent`, for the agent has been implemented as a base class for both the Q-learning agent and the Monte Carlo agent. It consists of a total of four functions, two of which are abstract.
 
@@ -66,7 +64,7 @@ The `__init__` function initializes the basic variables of the class, including:
 
 The `act` function takes an observation as input and uses epsilon-greedy selection to return the index of the selected action. Before each episode, the `schedule_hyperparameters` function is called to adjust epsilon. It takes current timestep at the beginning of the episode and the maximum timesteps that the training loop will run for as arguments. The `learn` function updates the Q-table based on the agent's experience.
 
-### Q-Learning Agent <a name="SetupQLearning"></a>
+### Q-Learning Agent
 
 A class, `QLearningAgent`, that inherits from `Agent` has been implemented as the Q-Learning agent.
 
@@ -88,7 +86,7 @@ The `__init__` function initializes an additional variable called `alpha` which 
 
 Then, it implements the Q-Learning algorithm to return the updated Q-value for current observation-action pair.
 
-### Monte Carlo Agent <a name="SetupMonteCarlo"></a>
+### Monte Carlo Agent
 
 A class, `MonteCarloAgent`, that inherits from `Agent` has been implemented as the Monte Carlo agent.
 
@@ -110,7 +108,7 @@ Then, it implements the On-Policy First Visit Monte Carlo algorithm to return a 
 
 ---
 
-## Training the Agent <a name="Training"></a>
+## Training the Agent
 
 The environment that the agents train and evaluate on are set with the following parameters:
 - `env`: "Taxi-v3"
@@ -139,7 +137,7 @@ The `evaluate` function assesses the given configuration on the provided environ
 
 This function serves to evaluate the performance of the agent in the given environment and provides insights into its effectiveness in completing tasks and avoiding negative outcomes.
 
-### Using Q-Learning <a name="TrainingQLearning"></a>
+### Using Q-Learning
 
 Training the agent with Q-Learning is done in `train_q_learning.py`. The Python file consists of two functions, `q_learning_eval` and `train`, and a few configurable constants, `eval_freq`, `alpha`, `epsilon` and `gamma`.
 
@@ -174,7 +172,7 @@ On the other hand, `train` accepts 3 parameters as its arguments which are:
 
 It trains the Q-Learning agent and calls `q_learning_eval` to evaluate on given environment with provided hyperparameters. Then, it returns the total reward over all episodes, list of means and standard deviations of evaluation returns and the final Q-table.
 
-### Using On-Policy First Visit Monte Carlo <a name="TrainingMonteCarlo"></a>
+### Using On-Policy First Visit Monte Carlo
 
 Training the agent with Monte Carlo is done in `train_monte_carlo.py`. The Python file consists of two functions, `monte_carlo_eval` and `train`, and a few configurable constants, `eval_freq`, `epsilon` and `gamma`.
 
@@ -207,9 +205,9 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 
 ---
 
-## Results <a name="Results></a>
+## Results
 
-### Q-Learning Agent <a name="QLearning"></a>
+### Q-Learning Agent
 
 <div class="container">
     <div class="row justify-content-center">
