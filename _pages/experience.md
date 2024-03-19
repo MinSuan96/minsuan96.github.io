@@ -23,7 +23,7 @@ Embarking on my role as a Global Software Service Engineer at Huawei's Global Se
 
 #### Initial Learning and Certification
 
-In my first week, I undertook a comprehensive series of learning modules and assessments, successfully earning certifications in key areas, including Information Security, Cyber Security, and Privacy Protection. These certifications, including the Pre-Position Competence Certificate, Cyber Security Certificate for Service Work, and Remote Delivery Certificate, laid a strong foundation for my subsequent endeavors.
+In my first week, I undertook a comprehensive series of learning modules and assessments, successfully earning certifications in key areas, including Information Security, Cyber Security, and Privacy Protection. These certifications, including the [Pre-Position Competence Certificate](https://minsuan96.github.io/assets/pdf/cyber-security.pdf), [Cyber Security Certificate for Service Work](https://minsuan96.github.io/assets/pdf/ppcc.pdf), and [Remote Delivery Certificate](https://minsuan96.github.io/assets/pdf/remote-delivery.pdf), laid a strong foundation for my subsequent endeavors.
 
 #### Project Involvement - CelcomDigi Harmonization
 
