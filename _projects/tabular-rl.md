@@ -99,6 +99,99 @@ Then, it implements the On-Policy First Visit Monte Carlo algorithm to return a 
 
 ## Training the Agent
 
+The environment that the agents train and evaluate on are set with the following parameters:
+- `env`: "Taxi-v3"
+- `eps_max_steps`: 50
+- `eval_episodes`: 500
+- `eval_eps_max_steps`: 100,
+- `total_eps` of Monte Carlo agent: 100000
+- `total_eps` of Q-Learning agent: 10000
+
+Both agents use the same `evaluate` function, which is implemented in `utils.py` for the evaluation of agent.
+
+```python
+def evaluate(env, agent, max_steps, eval_episodes, render)
+```
+
+The function accepts 5 parameters as its arguments, which are:
+- `env`: environment to execute evaluation on
+- `agent`: agent to act in environment
+- `max_steps`: max number of steps per evaluation episode
+- `eval_episodes`: number of evaluation episodes
+- `render`: flag whether evaluation runs should be rendered
+
+The `evaluate` function assesses the given configuration on the provided environment, using the specified agent, and returns two pieces of information:
+- The mean return received over all evaluation episodes.
+- The number of evaluation episodes where the return was negative.
+
+This function serves to evaluate the performance of the agent in the given environment and provides insights into its effectiveness in completing tasks and avoiding negative outcomes.
+
 ### Using Q-Learning
 
+Training the agent with Q-Learning is done in `train_q_learning.py`. The Python file consists of two functions, `q_learning_eval` and `train`, and a few configurable constants, `eval_freq`, `alpha`, `epsilon` and `gamma`.
 
+```python
+CONFIG = {
+    "eval_freq": 1000,
+    "alpha": 0.5,
+    "epsilon": 0.4,
+    "gamma": 0.99,
+}
+def q_learning_eval(env,
+        config,
+        q_table,
+        render=True,
+        output=True)
+def train(env, config, output=True)
+```
+
+ `q_learning_eval` accepts 5 parameters as its arguments which are:
+ - env: environment to execute evaluation on
+ - config: configuration dictionary containing hyperparameters
+ - q_table: Q-table mapping observation-action to Q-values
+ - render: flag whether evaluation runs should be rendered
+ - output: flag whether mean evaluation performance should be printed
+
+This function uses `utils.evaluate` to evaluate the configuration of Q-learning on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
+
+On the other hand, `train` accepts 3 parameters as its arguments which are:
+- env: environment to execute evaluation on
+- config: configuration dictionary containing hyperparameters
+- output: flag if mean evaluation results should be printed
+
+It trains the Q-Learning agent and calls `q_learning_eval` to evaluate on given environment with provided hyperparameters. Then, it returns the total reward over all episodes, list of means and standard deviations of evaluation returns and the final Q-table.
+
+### Using On-Policy First Visit Monte Carlo
+
+Training the agent with Monte Carlo is done in `train_monte_carlo.py`. The Python file consists of two functions, `monte_carlo_eval` and `train`, and a few configurable constants, `eval_freq`, `epsilon` and `gamma`.
+
+```python
+CONFIG = {
+    "eval_freq": 5000,
+    "epsilon": 0.3,
+    "gamma": 0.99,
+}
+def monte_carlo_eval(env,
+        config,
+        q_table,
+        render=True)
+def train(env, config)
+```
+
+ `monte_carlo_eval` accepts 4 parameters as its arguments which are:
+ - env: environment to execute evaluation on
+ - config: configuration dictionary containing hyperparameters
+ - q_table: Q-table mapping observation-action to Q-values
+ - render: flag whether evaluation runs should be rendered
+
+This function uses `utils.evaluate` to evaluate the configuration of Monte Carlo on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
+
+On the other hand, `train` accepts 2 parameters as its arguments which are:
+- env: environment to execute evaluation on
+- config: configuration dictionary containing hyperparameters
+
+It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on given environment with provided hyperparameters. Then, it returns the total reward over all episodes, list of means and standard deviations of evaluation returns and the final Q-table.
+
+---
+
+## Results
