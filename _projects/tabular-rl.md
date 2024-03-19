@@ -18,7 +18,8 @@ related_publications: false
   - [Using Q-Learning](#using-q-learning)
   - [Using On-Policy First Visit Monte Carlo](#using-on-policy-first-visit-monte-carlo)
 - [Results](#results)
-  - [Q-Learning Agent](#q-learning-agent-1)
+  - [Q-Learning](#q-learning)
+  - [Monte Carlo](#monte-carlo)
 
 
 # Taxi-v3
@@ -207,7 +208,7 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 
 # Results
 
-## Q-Learning Agent
+## Q-Learning
 
 <div class="container">
     <div class="row justify-content-center">
@@ -225,3 +226,5 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
         Q-Learning Agent trained with 1000, 2000 and 10000 episodes.
     </div>
 </div>
+
+## Monte Carlo
