@@ -4,7 +4,7 @@ title: Deep Reinforcement Learning
 description: Solving CartPole and Acrobot using Deep Q-Networks and REINFORCE
 img: assets/img/cart_pole_50.gif
 importance: 1
-category: completed
+category: Ready to Showcase
 related_publications: false
 ---
 
