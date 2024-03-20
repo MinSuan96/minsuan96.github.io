@@ -4,7 +4,7 @@ title: Tabular Reinforcement Learning
 description: Solving Taxi-v3 using Q-Learning and On-Policy First Visit Monte Carlo
 img: assets/img/taxi.gif
 importance: 1
-category: Writing in Progress
+category: Completed
 related_publications: false
 ---
 
@@ -227,4 +227,65 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
     </div>
 </div>
 
+Let's analyze the performance of the agents, each trained with a varying number of episodes (1000, 2000, and 10000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as q1000, q2000, and q10000.
+
+In the video provided, it's evident that q1000 struggled to locate and transport the passenger to the destination. However, significant improvement is observed with q2000, where the agent efficiently navigates to the passenger and completes the task with ease. Interestingly, both q2000 and q10000 agents exhibit comparable performance, as demonstrated in the videos.
+
+To further quantify their performance, we can calculate the mean returns from the evaluation episodes. Remarkably, the mean return of q2000 closely resembles that of q10000, indicating a substantial improvement from q1000 to q2000 and consistent performance between q2000 and q10000.
+
+Overall, these observations suggest that increasing the number of training episodes leads to enhanced performance, with q2000 achieving similar effectiveness to q10000 despite fewer training iterations.
+
+```python
+EVALUATION: EP 1000 - MEAN RETURN -43.402
+EVALUATION: EP 2000 - MEAN RETURN 7.486
+EVALUATION: EP 3000 - MEAN RETURN 7.814
+EVALUATION: EP 4000 - MEAN RETURN 7.734
+EVALUATION: EP 5000 - MEAN RETURN 7.832
+EVALUATION: EP 6000 - MEAN RETURN 7.892
+EVALUATION: EP 7000 - MEAN RETURN 7.814
+EVALUATION: EP 8000 - MEAN RETURN 8.028
+EVALUATION: EP 9000 - MEAN RETURN 8.03
+EVALUATION: EP 10000 - MEAN RETURN 7.896
+```
+
 ## Monte Carlo
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            {% include figure.liquid path="assets/img/taxi-mc10000.gif" class="img-fluid rounded z-depth-1" %}
+        </div>
+        <div class="col">
+            {% include figure.liquid path="assets/img/taxi-mc60000.gif" class="img-fluid rounded z-depth-1" %}
+        </div>
+        <div class="col">
+            {% include figure.liquid path="assets/img/taxi-mc100000.gif" class="img-fluid rounded z-depth-1" %}
+        </div>
+    </div>
+    <div class="caption">
+        Monte Carlo Agent trained with 10000, 60000 and 100000 episodes.
+    </div>
+</div>
+
+Let's analyze the performance of the agents, each trained with a varying number of episodes (10000, 60000, and 100000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as mc10000, mc60000, and mc100000.
+
+In the video provided, it's evident that mc10000 struggled to locate and transport the passenger to the destination, similar to q1000. As one would reasonably expect, mc10000 encountered instances where it got stuck at the corner of the map, indicating suboptimal policy learning. However, significant improvement is observed with mc60000, where the agent efficiently navigates to the passenger and completes the task with ease. Interestingly, both mc60000 and mc100000 agents exhibit comparable performance, as demonstrated in the videos.
+
+The Monte Carlo agents required more training iterations compared to the Q-Learning agents to achieve optimal performance. Despite this difference in training efficiency, both mc60000 and mc100000 agents showed similar effectiveness, akin to q2000 and q10000, respectively.
+
+To further quantify their performance, we can calculate the mean returns from the evaluation episodes. Remarkably, the mean return of mc60000 closely resembles that of mc100000, indicating a substantial improvement from mc10000 to mc60000 and consistent performance between mc60000 and mc100000.
+
+These observations underscore the effectiveness of increasing the number of training episodes, showcasing that while Monte Carlo agents require more iterations to converge, they can achieve comparable performance to Q-learning agents.
+
+```python
+EVALUATION: EP 10000 - MEAN RETURN -90.462
+EVALUATION: EP 20000 - MEAN RETURN -77.412
+EVALUATION: EP 30000 - MEAN RETURN -67.644
+EVALUATION: EP 40000 - MEAN RETURN -17.718
+EVALUATION: EP 50000 - MEAN RETURN -5.392
+EVALUATION: EP 60000 - MEAN RETURN 7.536
+EVALUATION: EP 70000 - MEAN RETURN 7.402
+EVALUATION: EP 80000 - MEAN RETURN 7.502
+EVALUATION: EP 90000 - MEAN RETURN 7.798
+EVALUATION: EP 100000 - MEAN RETURN 8.1
+```
