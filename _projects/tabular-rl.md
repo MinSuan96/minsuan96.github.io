@@ -19,7 +19,11 @@ related_publications: false
   - [Using On-Policy First Visit Monte Carlo](#using-on-policy-first-visit-monte-carlo)
 - [Results](#results)
   - [Q-Learning](#q-learning)
+    - [Video Observations](#video-observations)
+    - [Quantifying Performance](#quantifying-performance)
   - [Monte Carlo](#monte-carlo)
+    - [Video Observations](#video-observations-1)
+    - [Quantifying Performance](#quantifying-performance-1)
 
 
 # Taxi-v3
@@ -229,11 +233,15 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 
 Let's analyze the performance of the agents, each trained with a varying number of episodes (1000, 2000, and 10000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as q1000, q2000, and q10000.
 
-In the video provided, it's evident that q1000 struggled to locate and transport the passenger to the destination. However, significant improvement is observed with q2000, where the agent efficiently navigates to the passenger and completes the task with ease. Interestingly, both q2000 and q10000 agents exhibit comparable performance, as demonstrated in the videos.
+### Video Observations
 
-To further quantify their performance, we can calculate the mean returns from the evaluation episodes. Remarkably, the mean return of q2000 closely resembles that of q10000, indicating a substantial improvement from q1000 to q2000 and consistent performance between q2000 and q10000.
+1. q1000: Struggled to locate and transport the passenger efficiently。
+2. q2000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
+3. q10000: Exhibited comparable performance to q2000, as seen in the videos.
 
-Overall, these observations suggest that increasing the number of training episodes leads to enhanced performance, with q2000 achieving similar effectiveness to q10000 despite fewer training iterations.
+### Quantifying Performance
+
+To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of q2000 closely resembles that of q10000, despite fewer training iterations. Increasing the number of training episodes generally leads to enhanced performance. However, the policy may hardly improve further. In this case, q2000 achieved similar effectiveness to q10000 despite fewer training iterations.
 
 ```python
 EVALUATION: EP 1000 - MEAN RETURN -43.402
@@ -269,13 +277,17 @@ EVALUATION: EP 10000 - MEAN RETURN 7.896
 
 Let's analyze the performance of the agents, each trained with a varying number of episodes (10000, 60000, and 100000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as mc10000, mc60000, and mc100000.
 
-In the video provided, it's evident that mc10000 struggled to locate and transport the passenger to the destination, similar to q1000. As one would reasonably expect, mc10000 encountered instances where it got stuck at the corner of the map, indicating suboptimal policy learning. However, significant improvement is observed with mc60000, where the agent efficiently navigates to the passenger and completes the task with ease. Interestingly, both mc60000 and mc100000 agents exhibit comparable performance, as demonstrated in the videos.
+### Video Observations
 
-The Monte Carlo agents required more training iterations compared to the Q-Learning agents to achieve optimal performance. Despite this difference in training efficiency, both mc60000 and mc100000 agents showed similar effectiveness, akin to q2000 and q10000, respectively.
+1. mc10000: Struggled to efficiently locate and transport the passenger, similar to q1000.
+2. mc60000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
+3. mc100000: Exhibited comparable performance to mc60000, as seen in the videos.
 
-To further quantify their performance, we can calculate the mean returns from the evaluation episodes. Remarkably, the mean return of mc60000 closely resembles that of mc100000, indicating a substantial improvement from mc10000 to mc60000 and consistent performance between mc60000 and mc100000.
+### Quantifying Performance
 
-These observations underscore the effectiveness of increasing the number of training episodes, showcasing that while Monte Carlo agents require more iterations to converge, they can achieve comparable performance to Q-learning agents.
+To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of mc60000 closely resembles that of mc100000, despite fewer training iterations. 
+
+Monte Carlo agents required more training iterations compared to Q-Learning agents to achieve optimal performance. While Monte Carlo agents require more iterations to converge, they can achieve comparable performance to Q-learning agents. Despite this difference in training efficiency, both mc60000 and mc100000 agents showed similar effectiveness, akin to q2000 and q10000.
 
 ```python
 EVALUATION: EP 10000 - MEAN RETURN -90.462
