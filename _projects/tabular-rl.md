@@ -21,9 +21,11 @@ related_publications: false
   - [Q-Learning](#q-learning)
     - [Video Observations](#video-observations)
     - [Quantifying Performance](#quantifying-performance)
+    - [Insights](#insights)
   - [Monte Carlo](#monte-carlo)
     - [Video Observations](#video-observations-1)
     - [Quantifying Performance](#quantifying-performance-1)
+    - [Insights](#insights-1)
 
 
 # Taxi-v3
@@ -241,7 +243,7 @@ Let's analyze the performance of the agents, each trained with a varying number 
 
 ### Quantifying Performance
 
-To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of q2000 closely resembles that of q10000, despite fewer training iterations. Increasing the number of training episodes generally leads to enhanced performance. However, the policy may hardly improve further. In this case, q2000 achieved similar effectiveness to q10000 despite fewer training iterations.
+To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of q2000 closely resembles that of q10000, despite fewer training iterations.
 
 ```python
 EVALUATION: EP 1000 - MEAN RETURN -43.402
@@ -255,6 +257,10 @@ EVALUATION: EP 8000 - MEAN RETURN 8.028
 EVALUATION: EP 9000 - MEAN RETURN 8.03
 EVALUATION: EP 10000 - MEAN RETURN 7.896
 ```
+
+### Insights
+
+Increasing the number of training episodes generally leads to enhanced performance. However, the policy may hardly improve further. In this case, q2000 achieved similar effectiveness to q10000 despite fewer training iterations.
 
 ## Monte Carlo
 
@@ -287,8 +293,6 @@ Let's analyze the performance of the agents, each trained with a varying number 
 
 To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of mc60000 closely resembles that of mc100000, despite fewer training iterations. 
 
-Monte Carlo agents required more training iterations compared to Q-Learning agents to achieve optimal performance. While Monte Carlo agents require more iterations to converge, they can achieve comparable performance to Q-learning agents. Despite this difference in training efficiency, both mc60000 and mc100000 agents showed similar effectiveness, akin to q2000 and q10000.
-
 ```python
 EVALUATION: EP 10000 - MEAN RETURN -90.462
 EVALUATION: EP 20000 - MEAN RETURN -77.412
@@ -301,3 +305,7 @@ EVALUATION: EP 80000 - MEAN RETURN 7.502
 EVALUATION: EP 90000 - MEAN RETURN 7.798
 EVALUATION: EP 100000 - MEAN RETURN 8.1
 ```
+
+### Insights
+
+Monte Carlo agents required more training iterations compared to Q-Learning agents to achieve optimal performance. While Monte Carlo agents require more iterations to converge, they can achieve comparable performance to Q-learning agents.
