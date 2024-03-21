@@ -239,7 +239,7 @@ Let's analyze the performance of the agents, each trained with a varying number 
 
 1. q1000: Struggled to locate and transport the passenger efficiently。
 2. q2000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
-3. q10000: Exhibited comparable performance to q2000, as seen in the videos.
+3. q10000: Exhibited comparable performance to q2000, as seen in the GIFs.
 
 ### Quantifying Performance
 
@@ -287,7 +287,7 @@ Let's analyze the performance of the agents, each trained with a varying number 
 
 1. mc10000: Struggled to efficiently locate and transport the passenger, similar to q1000.
 2. mc60000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
-3. mc100000: Exhibited comparable performance to mc60000, as seen in the videos.
+3. mc100000: Exhibited comparable performance to mc60000, as seen in the GIFs.
 
 ### Quantifying Performance
 
