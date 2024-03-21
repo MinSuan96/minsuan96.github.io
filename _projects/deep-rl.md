@@ -2,7 +2,7 @@
 layout: page
 title: Deep Reinforcement Learning in Discrete Action Space
 description: Solving CartPole and Acrobot using Deep Q-Networks and REINFORCE
-img: assets/img/cartpole_acrobot.gif
+img: assets/img/acrobot_cartpole.gif
 importance: 1
 category: Writing in Progress
 related_publications: false
