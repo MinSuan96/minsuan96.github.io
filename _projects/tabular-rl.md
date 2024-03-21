@@ -36,7 +36,27 @@ related_publications: false
     </div>
 </div>
 
-The presented environment is part of the Toy Text environments in [Gymnasium](https://gymnasium.farama.org/), specifically the [Taxi-v3](https://gymnasium.farama.org/environments/toy_text/taxi/) environment. In this 5x5 grid world, the taxi must navigate to passengers at four designated locations (Red, Green, Yellow, and Blue), pick them up, and drop them off at their desired destinations. The action space is discrete with six possible actions, including movement in different directions, picking up, and dropping off passengers. There are 500 discrete states, considering taxi positions, passenger locations, and destination locations. The episode starts randomly, and rewards are given for successful passenger drop-offs, with penalties for incorrect pickup/drop-off actions. The episode ends when the passenger is dropped off or after 200 steps. This project uses Q-Learning and On-Policy First Visit Monte Carlo to solve the given environment.
+The Taxi environment simulates a scenario where a taxi navigates a grid world to pick up and drop off passengers at designated locations. The grid world is a 5x5 grid with four designated pick-up and drop-off locations marked by colors: Red, Green, Yellow, and Blue.
+
+At the start of each episode, the taxi is placed randomly within the grid, and a passenger is positioned at one of the designated locations. The objective is for the taxi to navigate to the passenger's location, pick up the passenger, move to the passenger's desired destination, and then drop off the passenger. Once the passenger is successfully dropped off, the episode concludes.
+
+The action space is discrete with six possible actions:
+
+- 0: Move south (down)
+- 1: Move north (up)
+- 2: Move east (right)
+- 3: Move west (left)
+- 4: Pickup passenger
+- 5: Drop off passenger
+
+The observation space is also discrete, with 500 possible states representing different combinations of taxi position, passenger location, and destination.
+
+Each step in the environment incurs a penalty of -1 unless a specific action triggers a different reward. Successfully dropping off a passenger yields a reward of +20. However, executing illegal actions such as attempting to pick up or drop off a passenger at an incorrect location incurs a penalty of -10.
+
+Episodes can end in two ways:
+
+1. The passenger is successfully dropped off at their destination.
+2. If a time limit is set, the episode ends after a fixed number of steps (usually 200).
 
 ---
 
