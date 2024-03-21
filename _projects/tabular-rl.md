@@ -19,11 +19,11 @@ related_publications: false
   - [Using On-Policy First Visit Monte Carlo](#using-on-policy-first-visit-monte-carlo)
 - [Results](#results)
   - [Q-Learning](#q-learning)
-    - [Video Observations](#video-observations)
+    - [Observations](#observations)
     - [Quantifying Performance](#quantifying-performance)
     - [Insights](#insights)
   - [Monte Carlo](#monte-carlo)
-    - [Video Observations](#video-observations-1)
+    - [Observations](#observations-1)
     - [Quantifying Performance](#quantifying-performance-1)
     - [Insights](#insights-1)
 
@@ -235,7 +235,7 @@ It trains the Monte Carlo agent and calls `monte_carlo_eval` to evaluate on give
 
 Let's analyze the performance of the agents, each trained with a varying number of episodes (1000, 2000, and 10000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as q1000, q2000, and q10000.
 
-### Video Observations
+### Observations
 
 1. q1000: Struggled to locate and transport the passenger efficiently。
 2. q2000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
@@ -283,7 +283,7 @@ Increasing the number of training episodes generally leads to enhanced performan
 
 Let's analyze the performance of the agents, each trained with a varying number of episodes (10000, 60000, and 100000) and evaluated over a number of episodes based on `eval_episodes`. We'll use a consistent naming convention to refer to these agents, such as mc10000, mc60000, and mc100000.
 
-### Video Observations
+### Observations
 
 1. mc10000: Struggled to efficiently locate and transport the passenger, similar to q1000.
 2. mc60000: Demonstrated significant improvement, efficiently navigating to the passenger and completing the task.
