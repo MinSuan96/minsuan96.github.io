@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Continuous Deep Reinforcement Learning
+title: Deep Reinforcement Learning in Continuous Action Spaces
 description: Solving Bipedal Walker using Deep Deterministic Policy Gradient
 img: assets/img/bipedal_walker_50.gif
 importance: 1
