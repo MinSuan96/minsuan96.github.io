@@ -41,7 +41,7 @@ At the start of each episode, the pole is placed upright on the cart, and the ag
 - 0: Push the cart to the left
 - 1: Push the cart to the right
 
-The observation space is a continuous Box with four elements:
+The observation space is a continuous array with four elements:
 
 1. Cart Position: Ranges from -4.8 to 4.8
 2. Cart Velocity: Can take any real value
@@ -66,7 +66,7 @@ In the Acrobot environment, the action space is discrete, with three possible ac
 - 1: Apply 0 torque to the actuated joint
 - 2: Apply 1 torque to the actuated joint
 
-The observation space is a continuous Box with six elements providing information about the rotational joint angles and their angular velocities. These observations include:
+The observation space is a continuous array with six elements providing information about the rotational joint angles and their angular velocities. These observations include:
 
 1. Cosine and sine of theta1 (angle of the first joint)
 2. Cosine and sine of theta2 (angle of the second joint relative to the first)
