@@ -2,7 +2,7 @@
 layout: page
 title: Deep Reinforcement Learning in Discrete Action Space
 description: Solving CartPole and Acrobot using Deep Q-Networks and REINFORCE
-img: assets/img/acrobot.gif
+img: assets/img/cartpole_acrobot.gif
 importance: 1
 category: Writing in Progress
 related_publications: false
@@ -16,6 +16,12 @@ related_publications: false
 - [Setting up the Agent](#setting-up-the-agent)
 - [Training the Agent](#training-the-agent)
 - [Results](#results)
+  - [Cartpole](#cartpole-1)
+    - [DQN](#dqn)
+    - [REINFORCE](#reinforce)
+  - [Acrobot](#acrobot-1)
+    - [DQN](#dqn-1)
+    - [REINFORCE](#reinforce-1)
 
 # The Environment
 
@@ -80,3 +86,32 @@ The episode ends when either the free end of the chain reaches a designated targ
 # Training the Agent
 
 # Results
+
+## Cartpole
+
+### DQN
+
+<!-- <div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            {% include figure.liquid path="assets/img/" class="img-fluid rounded z-depth-1" %}
+        </div>
+        <div class="col">
+            {% include figure.liquid path="assets/img/" class="img-fluid rounded z-depth-1" %}
+        </div>
+        <div class="col">
+            {% include figure.liquid path="assets/img/" class="img-fluid rounded z-depth-1" %}
+        </div>
+    </div>
+    <div class="caption">
+        DQN Agent trained with ,  and  episodes.
+    </div>
+</div> -->
+
+### REINFORCE
+
+## Acrobot
+
+### DQN
+
+### REINFORCE
