@@ -36,7 +36,7 @@ related_publications: false
     </div>
 </div>
 
-The Taxi environment simulates a scenario where a taxi navigates a grid world to pick up and drop off passengers at designated locations. The grid world is a 5x5 grid with four designated pick-up and drop-off locations marked by colors: Red, Green, Yellow, and Blue.
+[The Taxi environment](https://gymnasium.farama.org/environments/toy_text/taxi/) simulates a scenario where a taxi navigates a grid world to pick up and drop off passengers at designated locations. The grid world is a 5x5 grid with four designated pick-up and drop-off locations marked by colors: Red, Green, Yellow, and Blue.
 
 At the start of each episode, the taxi is placed randomly within the grid, and a passenger is positioned at one of the designated locations. The objective is for the taxi to navigate to the passenger's location, pick up the passenger, move to the passenger's desired destination, and then drop off the passenger. Once the passenger is successfully dropped off, the episode concludes.
 
