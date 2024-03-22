@@ -91,7 +91,7 @@ The episode ends when either the free end of the chain reaches a designated targ
 
 ### DQN
 
-<!-- <div class="container">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col">
             {% include figure.liquid path="assets/img/" class="img-fluid rounded z-depth-1" %}
@@ -106,7 +106,7 @@ The episode ends when either the free end of the chain reaches a designated targ
     <div class="caption">
         DQN Agent trained with ,  and  episodes.
     </div>
-</div> -->
+</div>
 
 ### REINFORCE
 
