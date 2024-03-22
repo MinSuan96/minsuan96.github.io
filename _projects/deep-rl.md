@@ -14,7 +14,11 @@ related_publications: false
   - [Cartpole](#cartpole)
   - [Acrobot](#acrobot)
 - [Setting up the Agent](#setting-up-the-agent)
+  - [DQN Agent](#dqn-agent)
+  - [REINFORCE Agent](#reinforce-agent)
 - [Training the Agent](#training-the-agent)
+  - [Using DQN](#using-dqn)
+  - [Using REINFORCE](#using-reinforce)
 - [Results](#results)
   - [Cartpole](#cartpole-1)
     - [DQN](#dqn)
@@ -83,7 +87,15 @@ The episode ends when either the free end of the chain reaches a designated targ
 
 # Setting up the Agent
 
+## DQN Agent
+
+## REINFORCE Agent
+
 # Training the Agent
+
+## Using DQN
+
+## Using REINFORCE
 
 # Results
 
