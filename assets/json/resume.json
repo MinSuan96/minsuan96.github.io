@@ -46,7 +46,7 @@
   "education": [
     {
       "institution": "The University of Edinburgh",
-      "area": "Reinforcement Learning, Machine Learning Practical, Principles and Design of IoT Systems, Machine Learning Theory, Advanced Database Systems, Types and Semantics for Programming Languages",
+      "area": "Reinforcement Learning, \nMachine Learning Practical, \nPrinciples and Design of IoT Systems, \nMachine Learning Theory, \nAdvanced Database Systems, \nTypes and Semantics for Programming Languages",
       "studyType": "Computer Science (Master of Science)",
       "startDate": "2022-09-30",
       "endDate": "2023-08-31",
@@ -55,7 +55,7 @@
     },
     {
       "institution": "The University of Edinburgh",
-      "area": "Algorithms and Data Structures, Machine Learning and Pattern Recognition, Applied Machine Learning, Parallel Programming Languages and Systems, Computer Communications and Networks, Algorithmic Game Theory and its Applications, Computer Graphics, Blockchains and Distributed Ledgers, Modern Cryptography, Secure Programming, Computer Security, Computer Systems",
+      "area": "Algorithms and Data Structures, \nMachine Learning and Pattern Recognition, \nApplied Machine Learning, \nParallel Programming Languages and Systems, \nComputer Communications and Networks, \nAlgorithmic Game Theory and its Applications, \nComputer Graphics, \nBlockchains and Distributed Ledgers, \nModern Cryptography, \nSecure Programming, \nComputer Security, \nComputer Systems",
       "studyType": "Computer Science (Beng Hons)",
       "startDate": "2018-12-31",
       "endDate": "2022-07-31",
