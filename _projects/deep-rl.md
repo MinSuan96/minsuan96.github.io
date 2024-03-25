@@ -85,17 +85,23 @@ The observation space is a continuous array with six elements providing informat
 
 The episode ends when either the free end of the chain reaches a designated target height or the episode length exceeds a predefined limit. The reward structure encourages the system to reach the target height in as few steps as possible, with a reward of -1 given for each step that does not reach the goal. Achieving the target height results in termination with a reward of 0.
 
+---
+
 # Setting up the Agent
 
 ## DQN Agent
 
 ## REINFORCE Agent
 
+---
+
 # Training the Agent
 
 ## Using DQN
 
 ## Using REINFORCE
+
+---
 
 # Results
 
