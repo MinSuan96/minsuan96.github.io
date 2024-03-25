@@ -55,13 +55,8 @@
     },
     {
       "institution": "The University of Edinburgh",
-<<<<<<< HEAD
-      "area": "Algorithms and Data Structures, \nMachine Learning and Pattern Recognition, \nApplied Machine Learning, \nParallel Programming Languages and Systems, \nComputer Communications and Networks, \nAlgorithmic Game Theory and its Applications, \nComputer Graphics, \nBlockchains and Distributed Ledgers, \nModern Cryptography, \nSecure Programming, \nComputer Security, \nComputer Systems",
-      "studyType": "Computer Science (BEng Hons)",
-=======
       "area": "Algorithms and Data Structures, Machine Learning and Pattern Recognition, Applied Machine Learning, Parallel Programming Languages and Systems, Computer Communications and Networks, Algorithmic Game Theory and its Applications, Computer Graphics, Blockchains and Distributed Ledgers, Modern Cryptography, Secure Programming, Computer Security, Computer Systems",
-      "studyType": "Computer Science (Beng Hons)",
->>>>>>> parent of ea08646 (Update resume.json)
+      "studyType": "Computer Science (BEng Hons)",
       "startDate": "2018-12-31",
       "endDate": "2022-07-31",
       "score": "1st class",
