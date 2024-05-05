@@ -7,13 +7,33 @@ nav: true
 nav_order: 2
 ---
 
+# Software Engineer
+
+| Job Title: |   | Software Engineer                                                      |
+| ---------  | - | ---------------------------------------------------------------------- |
+| Company:   |   | [InsiderSecurity](https://insidersecurity.co/)                         |
+| Location:  |   | Kuala Lumpur, Malaysia                                                 |
+| Date:      |   | 06<sup>th</sup> May 2024 - Present                                     |
+
+<br>
+
+### Job Scope
+
+- Software development of innovative cybersecurity products
+- Work on either back-end, front-end, algorithms or devops
+- Develop flowcharts, layouts, and documentation to identify requirements and propose solutions
+- Develop clean and efficient code that is designed and structured for easy testing
+- Develop comprehensive tests to ensure codebase quality and stability
+
+---
+
 # Global Software Service Engineer
 
 | Job Title: |   | Global Software Service Engineer                                       |
 | ---------  | - | ---------------------------------------------------------------------- |
-| Company:   |   | [Huawei Technologies (Malaysia) Sdn. Bhd.](https://www.huawei.com/my/) |
+| Company:   |   | [Huawei Technologies (Malaysia)](https://www.huawei.com/my/)           |
 | Location:  |   | Kuala Lumpur, Malaysia                                                 |
-| Date:      |   | 18<sup>th</sup> December 2023 - Present                                |
+| Date:      |   | 18<sup>th</sup> December 2023 - 30<sup>th</sup> April 2024             |
 
 <br>
 
