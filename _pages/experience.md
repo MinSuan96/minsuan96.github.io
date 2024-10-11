@@ -19,11 +19,35 @@ nav_order: 2
 
 ### Job Scope
 
-- Software development of innovative cybersecurity products
-- Work on either back-end, front-end, algorithms or devops
-- Develop flowcharts, layouts, and documentation to identify requirements and propose solutions
-- Develop clean and efficient code that is designed and structured for easy testing
-- Develop comprehensive tests to ensure codebase quality and stability
+As a Software Engineer, I played a critical role in optimizing backend systems and enhancing the performance and scalability of enterprise-level applications. My contributions spanned across automation, risk model improvements, and system integrations, ensuring high availability, security, and compliance with industry standards.
+
+#### Risk Model Optimization and Scalability
+
+Led efforts to optimize the core risk scoring engine, improving its ability to process high volumes of alert data efficiently by implementing multiprocessing, streamlining code, and redesigning the caching mechanism. This resulted in a 120%-160% performance improvement.
+
+#### Automation of Sensor Role and Tag Assignment
+
+Developed automated systems for the role and tag assignment of sensors, reducing manual intervention and improving the accuracy of sensor data processing.
+
+#### System Integration and Compliance
+
+Updated system components to comply with industry standards such as IETF RFC 5424 for logging, improving interoperability with external systems and ensuring adherence to best practices.
+
+#### Tool Development for Data Management
+
+Created tools for efficient data retrieval and visualization, including a GridFS snapshot downloader/viewer, improving data accessibility and system functionality.
+
+#### Issue Resolution and Maintenance
+
+Proactively addressed system issues, such as fixing SharePoint access problems, resolving sensor downtime handling, and ensuring smooth operation of saved reports and subsystem services.
+
+### Technologies Used
+
+- Python (multiprocessing, MongoDB)
+- RabbitMQ for message queuing
+- GridFS for data storage
+- Compliance with IETF standards
+- Automation and system integration tools
 
 ---
 
