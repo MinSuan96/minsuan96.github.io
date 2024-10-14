@@ -8,7 +8,7 @@ category: Completed
 related_publications: false
 ---
 
-\_Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).\*
+*Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
 - [Taxi-v3](#taxi-v3)
 - [Setting up the Agent](#setting-up-the-agent)
