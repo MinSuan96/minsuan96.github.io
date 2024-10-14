@@ -21,9 +21,9 @@ Here's a step-by-step explanation of how gradient descent is done:
 
 4. Update Parameters: Adjust the parameters in the opposite direction of the gradient. This is done to move towards the minimum of the cost function. The update is performed using the learning rate, which determines the size of the steps taken in the parameter space.
 
-    > New Parameter = Old Parameter − Learning Rate × Gradient
+   > New Parameter = Old Parameter − Learning Rate × Gradient
 
-    The learning rate is a hyperparameter that needs to be carefully chosen. If it's too small, the algorithm may take a long time to converge, and if it's too large, it may overshoot the minimum.
+   The learning rate is a hyperparameter that needs to be carefully chosen. If it's too small, the algorithm may take a long time to converge, and if it's too large, it may overshoot the minimum.
 
 5. Repeat: Repeat steps 2-4 until convergence or a predetermined number of iterations. Convergence occurs when the parameters reach values where further adjustments don't significantly improve the cost function.
 

@@ -4,7 +4,7 @@ Welcome to my personal website! This space is dedicated to sharing my journey, e
 
 ## About Me
 
-Explore the "About" page to learn more about who I am, my educational background, and my passion for coding. 
+Explore the "About" page to learn more about who I am, my educational background, and my passion for coding.
 
 ## Blog
 

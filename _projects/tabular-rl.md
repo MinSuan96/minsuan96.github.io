@@ -8,7 +8,7 @@ category: Completed
 related_publications: false
 ---
 
-*Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
+_Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
 - [Taxi-v3](#taxi-v3)
 - [Setting up the Agent](#setting-up-the-agent)
@@ -26,7 +26,6 @@ related_publications: false
     - [Observations](#observations-1)
     - [Quantifying Performance](#quantifying-performance-1)
     - [Insights](#insights-1)
-
 
 # Taxi-v3
 
@@ -82,6 +81,7 @@ class Agent(ABC):
 ```
 
 The `__init__` function initializes the basic variables of the class, including:
+
 - `action_space`: action space of the environment
 - `obs_space`: observation space of the environment
 - `gamma`: discount factor
@@ -105,6 +105,7 @@ class QLearningAgent(Agent):
 ```
 
 The `__init__` function initializes an additional variable called `alpha` which represents the learning rate of the agent. The `schedule_hyperparameters` function uses linear decay to adjust epsilon, using a different gradient and minumum compared to those used in the Monte Carlo agent. The `learn` function takes several arguments as input, including:
+
 - `obs`: received observation representing the current environmental state
 - `action`: index of applied action
 - `reward`: received reward
@@ -138,6 +139,7 @@ Then, it implements the On-Policy First Visit Monte Carlo algorithm to return a 
 # Training the Agent
 
 The environment that the agents train and evaluate on are set with the following parameters:
+
 - `env`: "Taxi-v3"
 - `eps_max_steps`: 50
 - `eval_episodes`: 500
@@ -152,6 +154,7 @@ def evaluate(env, agent, max_steps, eval_episodes, render)
 ```
 
 The function accepts 5 parameters as its arguments, which are:
+
 - `env`: environment to execute evaluation on
 - `agent`: agent to act in environment
 - `max_steps`: max number of steps per evaluation episode
@@ -159,6 +162,7 @@ The function accepts 5 parameters as its arguments, which are:
 - `render`: flag whether evaluation runs should be rendered
 
 The `evaluate` function assesses the given configuration on the provided environment, using the specified agent, and returns two pieces of information:
+
 - The mean return received over all evaluation episodes.
 - The number of evaluation episodes where the return was negative.
 
@@ -183,16 +187,18 @@ def q_learning_eval(env,
 def train(env, config, output=True)
 ```
 
- `q_learning_eval` accepts 5 parameters as its arguments which are:
- - env: environment to execute evaluation on
- - config: configuration dictionary containing hyperparameters
- - q_table: Q-table mapping observation-action to Q-values
- - render: flag whether evaluation runs should be rendered
- - output: flag whether mean evaluation performance should be printed
+`q_learning_eval` accepts 5 parameters as its arguments which are:
+
+- env: environment to execute evaluation on
+- config: configuration dictionary containing hyperparameters
+- q_table: Q-table mapping observation-action to Q-values
+- render: flag whether evaluation runs should be rendered
+- output: flag whether mean evaluation performance should be printed
 
 This function uses `utils.evaluate` to evaluate the configuration of Q-learning on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
 
 On the other hand, `train` accepts 3 parameters as its arguments, which are:
+
 - env: environment to execute evaluation on
 - config: configuration dictionary containing hyperparameters
 - output: flag if mean evaluation results should be printed
@@ -216,15 +222,17 @@ def monte_carlo_eval(env,
 def train(env, config)
 ```
 
- `monte_carlo_eval` accepts 4 parameters as its arguments which are:
- - env: environment to execute evaluation on
- - config: configuration dictionary containing hyperparameters
- - q_table: Q-table mapping observation-action to Q-values
- - render: flag whether evaluation runs should be rendered
+`monte_carlo_eval` accepts 4 parameters as its arguments which are:
+
+- env: environment to execute evaluation on
+- config: configuration dictionary containing hyperparameters
+- q_table: Q-table mapping observation-action to Q-values
+- render: flag whether evaluation runs should be rendered
 
 This function uses `utils.evaluate` to evaluate the configuration of Monte Carlo on given environment when initialised with given Q-table. Then, it returns the mean and standard deviation of returns received over episodes.
 
 On the other hand, `train` accepts 2 parameters as its arguments, which are:
+
 - env: environment to execute evaluation on
 - config: configuration dictionary containing hyperparameters
 

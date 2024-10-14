@@ -8,7 +8,7 @@ category: Completed
 related_publications: false
 ---
 
-*Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
+_Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
 
 - [Markov Decision Process](#markov-decision-process)
 - [Setting up the Environment](#setting-up-the-environment)
@@ -16,7 +16,6 @@ related_publications: false
   - [Value Iteration](#value-iteration)
   - [Policy Iteration](#policy-iteration)
 - [Solving MDP with Dynamic Programming](#solving-mdp-with-dynamic-programming)
-
 
 # Markov Decision Process
 
@@ -54,7 +53,7 @@ As an example, this class can be used to instantiate an MDP object with three st
 
 ```python
     mdp = MDP()
-    mdp.add_transition(        
+    mdp.add_transition(
         #         start action end prob reward
         Transition("s0", "a0", "s1", 0.4, 5),
         Transition("s0", "a0", "s2", 0.6, -3),
@@ -74,19 +73,19 @@ As an example, this class can be used to instantiate an MDP object with three st
 The following represents the transition table for the example.
 
 | Start | Action | End | Probability | Reward |
-|:-----:|:------:|:---:|:-----------:|:------:|
-|   s0  |   a0   |  s1 |     0.4     |    5   |
-|   s0  |   a0   |  s2 |     0.6     |   -3   |
-|   s0  |   a1   |  s1 |     0.3     |    2   |
-|   s0  |   a1   |  s2 |     0.7     |    1   |
-|   s1  |   a0   |  s0 |     0.1     |    1   |
-|   s1  |   a0   |  s2 |     0.9     |    2   |
-|   s1  |   a1   |  s0 |     0.8     |   -1   |
-|   s1  |   a1   |  s2 |     0.2     |    4   |
-|   s2  |   a0   |  s0 |     0.6     |    0   |
-|   s2  |   a0   |  s1 |     0.4     |   -5   |
-|   s2  |   a1   |  s0 |     0.3     |    3   |
-|   s2  |   a1   |  s1 |     0.7     |    2   |
+| :---: | :----: | :-: | :---------: | :----: |
+|  s0   |   a0   | s1  |     0.4     |   5    |
+|  s0   |   a0   | s2  |     0.6     |   -3   |
+|  s0   |   a1   | s1  |     0.3     |   2    |
+|  s0   |   a1   | s2  |     0.7     |   1    |
+|  s1   |   a0   | s0  |     0.1     |   1    |
+|  s1   |   a0   | s2  |     0.9     |   2    |
+|  s1   |   a1   | s0  |     0.8     |   -1   |
+|  s1   |   a1   | s2  |     0.2     |   4    |
+|  s2   |   a0   | s0  |     0.6     |   0    |
+|  s2   |   a0   | s1  |     0.4     |   -5   |
+|  s2   |   a1   | s0  |     0.3     |   3    |
+|  s2   |   a1   | s1  |     0.7     |   2    |
 
 ---
 
