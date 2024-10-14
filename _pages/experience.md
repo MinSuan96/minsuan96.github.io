@@ -7,7 +7,7 @@ nav: true
 nav_order: 2
 ---
 
-# Software Engineer
+# InsiderSecurity
 
 | Job Title: |     | Software Engineer                              |
 | ---------- | --- | ---------------------------------------------- |
@@ -53,7 +53,7 @@ Proactively addressed system issues, such as fixing SharePoint access problems, 
 
 ---
 
-# Global Software Service Engineer
+# Huawei Technologies
 
 | Job Title: |     | Global Software Service Engineer                             |
 | ---------- | --- | ------------------------------------------------------------ |
@@ -85,7 +85,7 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 
 ---
 
-# Java Tutor and Marker
+# The University of Edinburgh
 
 | Job Title: |     | Java Tutor and Marker                                   |
 | ---------- | --- | ------------------------------------------------------- |
