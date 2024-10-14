@@ -23,7 +23,7 @@ As a Software Engineer, I played a critical role in optimizing backend systems a
 
 #### Risk Model Optimization and Scalability
 
-Led efforts to optimize the core risk scoring engine, improving its ability to process high volumes of alert data efficiently by implementing multiprocessing, streamlining code, and redesigning the caching mechanism. [This resulted in a 120%-160% performance improvement.](https://minsuan96.github.io/assets/pdf/BNWEngineV4_Results.pdf)
+Led efforts to optimize the core risk scoring engine, improving its ability to process high volumes of alert data efficiently by implementing multiprocessing, streamlining code, and redesigning the caching mechanism. [This resulted in a 120%-160% performance improvement.](https://minsuan96.github.io/assets/pdf/Results_of_BNWEngineV4_Optimizations.pdf)
 
 #### Automation of Sensor Role and Tag Assignment
 
