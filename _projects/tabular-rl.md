@@ -8,7 +8,7 @@ category: Completed
 related_publications: false
 ---
 
-_Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).*
+\_Disclaimer: The code for this project is not accessible to the public as it constitutes one of the assignments for the [Reinforcement Learning](https://opencourse.inf.ed.ac.uk/rl) course at [The University of Edinburgh](https://www.ed.ac.uk/).\*
 
 - [Taxi-v3](#taxi-v3)
 - [Setting up the Agent](#setting-up-the-agent)
@@ -128,6 +128,7 @@ class MonteCarloAgent(Agent):
 ```
 
 The `__init__` function initializes an additional variable called `sa_counts` which is a dicionary used to count occurrences observation-action pairs. The `schedule_hyperparameters` function uses linear decay to adjust epsilon, using a different gradient and minumum compared to those used in the Q-Learning agent. The `learn` function takes several arguments as input, including:
+
 - `obses`: list of received observations representing environmental states of trajectory (in the order they were encountered)
 - `actions`: list of indices of applied actions in trajectory (in the order they were applied)
 - `rewards`: list of received rewards during trajectory (in the order they were received)
@@ -271,7 +272,7 @@ Let's analyze the performance of the agents, each trained with a varying number 
 
 ### Quantifying Performance
 
-To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of q2000 closely resembles that of q10000, despite fewer training iterations.
+To quantify their effectiveness, we calculate the mean returns from evaluation episodes with the total number of episodes equals to `eval_episodes`. Remarkably, the mean return of mc60000 closely resembles that of mc100000, despite fewer training iterations.
 
 ```python
 EVALUATION: EP 1000 - MEAN RETURN -43.402
