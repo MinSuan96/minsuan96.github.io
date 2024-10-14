@@ -19,7 +19,9 @@ nav_order: 2
 
 ### Job Scope
 
-As a Software Engineer, I played a critical role in optimizing backend systems and enhancing the performance and scalability of enterprise-level applications. My contributions spanned across automation, risk model improvements, and system integrations, ensuring high availability, security, and compliance with industry standards.
+InsiderSecurity's [Automated User and Entity Behavior Analytics (UEBA)](https://insidersecurity.co/products/automated-user-and-entity-behaviour-analytics/) detects malicious user activity within both on-premise and cloud infrastructures. It leverages machine learning and advanced behavior analytics to identify threats like hijacked accounts, insider data theft, and compromised servers. Automated UEBA provides early detection, enabling timely action to prevent data loss. It is designed to be highly automated, reducing the need for large IT security teams, and is deployed by large enterprises and governments.
+
+As a Software Engineer, I played a critical role in optimizing backend systems and enhancing the performance and scalability of Automated UEBA. My contributions spanned across automation, risk model improvements, and system integrations, ensuring high availability, security, and compliance with industry standards.
 
 #### Risk Model Optimization and Scalability
 
