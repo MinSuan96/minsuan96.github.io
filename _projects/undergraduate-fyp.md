@@ -8,4 +8,4 @@ category: Ready to Showcase
 related_publications: false
 ---
 
-Showcase to be added.
+Showcase to be added but paper is available to read [here](https://minsuan96.github.io/assets/pdf/undergraduate-fyp.pdf).
