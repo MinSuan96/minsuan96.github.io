@@ -9,7 +9,7 @@ profile:
   image: me.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    A gamer who loves to code or a coder who loves to game.
+    A gamer who loves to code.
 
 news: true # includes a list of news items
 latest_posts: true # includes a list of the newest posts
