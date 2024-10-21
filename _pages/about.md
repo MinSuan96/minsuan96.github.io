@@ -17,7 +17,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Greetings! 👋 I'm a passionate individual with a love for gaming, problem-solving, and the ever-evolving world of machine learning. Let me share a bit more about the diverse facets of my interests and academic pursuits!
+Greetings! 👋 I'm a passionate individual with a love for gaming, problem-solving, and the ever-evolving world of coding. Let me share a bit more about the diverse facets of my interests and academic pursuits!
 
 Academic Explorer 📚: I hold an MSc and BEng in Computer Science from [The University of Edinburgh](https://www.ed.ac.uk/), with a focus on machine learning. My machine learning ventures extend to diverse projects, including but not limited to what's shown [here](https://minsuan96.github.io/projects/). My MSc dissertation delved into the practical application of game theory in financial systems, aiming to optimize clearing payments through established algorithms. On the undergraduate front, I explored the theoretical realms of game theory, seeking equilibrium in a lattice with an underlying monotone function.
 
