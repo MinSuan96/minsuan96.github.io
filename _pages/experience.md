@@ -27,7 +27,7 @@ As a Software Engineer, I played a critical role in optimizing backend systems a
 
 Single-handedly led efforts to optimize the core risk scoring engine, improving its ability to process high volumes of alert data efficiently by implementing multiprocessing, streamlining code, and redesigning the caching mechanism. [This resulted in at least a 140% improvement in performance.](https://minsuan96.github.io/assets/pdf/BNWEngineV4_Results.pdf)
 
-#### Integration of The Product with Cloud Infrastructures
+#### Integration with Cloud Infrastructures
 
 Integrated the product with various cloud infrastructures, including Amazon Web Services (AWS) and Microsoft Azure, enhancing its capability to monitor and analyze activities across diverse environments. Traditionally, the product was designed to work with on-premise systems, but with the growing adoption of cloud services, this integration was crucial for comprehensive security monitoring. Many of the customers of InsiderSecurity have to comply with regulations that require monitoring of cloud activities, and in order to use the product, [it has to used under the GCC environment](https://www.tech.gov.sg/products-and-services/for-government-agencies/software-development/government-on-commercial-cloud), making this integration a key requirement.
 
