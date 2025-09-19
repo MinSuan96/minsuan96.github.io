@@ -74,7 +74,7 @@ Mentored junior developers, providing guidance on best practices, code reviews, 
 - Redis
 - Microsoft Azure
 - Amazon AWS
-- Kubernetes (Little experience)
+- Kubernetes
 
 ---
 
