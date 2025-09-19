@@ -27,29 +27,54 @@ As a Software Engineer, I played a critical role in optimizing backend systems a
 
 Single-handedly led efforts to optimize the core risk scoring engine, improving its ability to process high volumes of alert data efficiently by implementing multiprocessing, streamlining code, and redesigning the caching mechanism. [This resulted in at least a 140% improvement in performance.](https://minsuan96.github.io/assets/pdf/BNWEngineV4_Results.pdf)
 
+#### Integration of The Product with Cloud Infrastructures
+
+Integrated the product with various cloud infrastructures, including Amazon Web Services (AWS) and Microsoft Azure, enhancing its capability to monitor and analyze activities across diverse environments. Traditionally, the product was designed to work with on-premise systems, but with the growing adoption of cloud services, this integration was crucial for comprehensive security monitoring. Many of the customers of InsiderSecurity have to comply with regulations that require monitoring of cloud activities, and in order to use the product, [it has to used under the GCC environment](https://www.tech.gov.sg/products-and-services/for-government-agencies/software-development/government-on-commercial-cloud), making this integration a key requirement.
+
+#### Sensorless Pipeline Development
+
+As mentioned, more and more customers are moving to the cloud, and some of them are sending logs directly from their systems. To cater to these customers, I developed a sensorless pipeline that allows the product to collect and analyze logs directly from cloud services and syslog without the need for on-premise sensors. This not only involved receiving logs from cloud services but also ensuring that the logs were processed and analyzed in a way that was consistent with the existing system. This development was crucial for expanding the product's market reach and ensuring that it could meet the needs of customers.
+
+#### Sensor Improvements and Feature Enhancements
+
+Enhanced sensor capabilities by adding new features, such as support for additional log formats, auditing capabilities, log rotation, additional capability of receiving commands from the backend, bug fixes and more. The sensor is written in C++ and is responsible for collecting and forwarding log data to the backend system. These improvements not only increased the sensor's functionality but also improved its reliability and performance in diverse environments.
+
 #### Automation of Sensor Role and Tag Assignment
 
-Developed automated systems for the role and tag assignment of sensors, reducing manual intervention and improving the accuracy of sensor data processing.
+Developed automated systems for the role and tag assignment of sensors, reducing manual intervention and improving the accuracy of sensor data processing. This automation streamlined the deployment and management of sensors across various environments, ensuring that they were correctly configured to meet specific monitoring requirements. This was particularly important as the number of sensors deployed increased, making manual configuration impractical. The automation system utilized Redis for caching and identification of sensors, ensuring efficient and accurate role and tag assignments.
 
-#### System Integration and Compliance
+#### Forwarder System Enhancement
 
-Updated system components to comply with industry standards such as IETF RFC 5424 for logging, improving interoperability with external systems and ensuring adherence to best practices.
+One of the key features of the product is its ability to forward logs to third-party systems and other log management solutions. I improved the forwarder system by utilizing RabbitMQ for message queuing and TCP connections for log transmission. This enhancement ensured reliable and efficient log forwarding, even in high-load scenarios, and improved the overall performance of the log forwarding system.
 
-#### Tool Development for Data Management
+#### Improvement and Refactoring of Old, Inefficient Systems
 
-Created tools for efficient data retrieval and visualization, including a GridFS snapshot downloader/viewer, improving data accessibility and system functionality.
+Refactored and optimized legacy systems, such as SQL anomaly detection systems, to enhance their performance and maintainability. Some of the key improvements include enhancing the algorithm with machine learning techniques, rewriting parts of the codebase, improving database queries, and implementing more efficient algorithms. The refactoring efforts not only improved the performance of these systems but also made them easier to maintain and extend in the future.
+
+#### Frontend Development and Enhancements
+
+Contributed to the development and enhancement of the frontend user interface, improving user experience and accessibility. This included implementing interface for enabling/disabling parts of the system, improving the visualization of log sources, and enhancing the overall design and usability of the frontend. The frontend is built using Sinatra and Vue.js, and my contributions helped to make it more user-friendly and efficient.
 
 #### Issue Resolution and Maintenance
 
-Proactively addressed system issues, such as fixing SharePoint access problems, resolving sensor downtime handling, and ensuring smooth operation of saved reports and subsystem services.
+Proactively addressed system issues, such as resolving sensor downtime handling, fixing bugs in the backend, API, and frontend, resolving customer-specific issues and improving the overall stability of the product. This involved reproducing the problem, identifying the root causes of issues, implementing fixes, and testing the solutions to ensure that they were effective. Regular maintenance and updates were also performed to keep the system running smoothly and to address any emerging issues.
+
+#### Junior Developer Mentorship
+
+Mentored junior developers, providing guidance on best practices, code reviews, and technical support. This mentorship helped to foster a collaborative and supportive development environment, ensuring that junior team members could grow their skills and contribute effectively to the team. I provided regular feedback, shared knowledge on various technologies used in the product, and assisted with problem-solving and debugging.
 
 ### Technologies Used
 
-- Python (multiprocessing, MongoDB)
-- RabbitMQ for message queuing
-- GridFS for data storage
-- Compliance with IETF standards
-- Automation and system integration tools
+- Python
+- Ruby
+- C++
+- JavaScript
+- MongoDB
+- RabbitMQ
+- Redis
+- Microsoft Azure
+- Amazon AWS
+- Kubernetes (Little experience)
 
 ---
 
