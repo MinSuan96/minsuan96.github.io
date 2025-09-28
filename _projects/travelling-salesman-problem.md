@@ -4,7 +4,7 @@ title: Drone Control Algorithm
 description: An attempt to solve the Travelling Salesman Problem in Java.
 img: assets/img/tsp.jpg
 importance: 3
-category: Past Projects
+category: Archived Projects
 related_publications: false
 ---
 

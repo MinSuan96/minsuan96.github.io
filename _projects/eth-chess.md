@@ -4,7 +4,7 @@ title: Decentralized Chess
 description: A decentralized chess game on the Ethereum blockchain.
 img: assets/img/chess.png
 importance: 2
-category: Past Projects
+category: Archived Projects
 related_publications: false
 ---
 

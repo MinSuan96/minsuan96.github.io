@@ -4,7 +4,7 @@ title: Ray Tracing Image Generator
 description: A C++ program that generates images using ray tracing.
 img: assets/img/reflector.png
 importance: 1
-category: Past Projects
+category: Archived Projects
 related_publications: false
 ---
 

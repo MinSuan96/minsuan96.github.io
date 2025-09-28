@@ -5,7 +5,7 @@ permalink: /projects/
 description: Here's where I showcase my projects.
 nav: true
 nav_order: 3
-display_categories: [Completed, Writing in Progress, Past Projects]
+display_categories: [Completed, Past Projects]
 horizontal: false
 ---
 

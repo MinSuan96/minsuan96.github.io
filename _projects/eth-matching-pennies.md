@@ -4,7 +4,7 @@ title: Decentralized Matching Pennies
 description: A decentralized Matching Pennies game on the Ethereum blockchain.
 img: assets/img/coin.png
 importance: 3
-category: Past Projects
+category: Archived Projects
 related_publications: false
 ---
 
