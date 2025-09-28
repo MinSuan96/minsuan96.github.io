@@ -8,4 +8,4 @@ category: past
 related_publications: false
 ---
 
-Showcase to be added.
+Due to data loss, only project titles are listed.

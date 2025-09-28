@@ -8,4 +8,4 @@ category: Writing in Progress
 related_publications: false
 ---
 
-Showcase to be added but paper is available to read [here](https://minsuan96.github.io/assets/pdf/msc-project.pdf).
+The paper is available to read [here](https://minsuan96.github.io/assets/pdf/msc-project.pdf).
