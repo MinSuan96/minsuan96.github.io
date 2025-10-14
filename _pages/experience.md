@@ -7,19 +7,17 @@ nav: true
 nav_order: 2
 ---
 
-# InsiderSecurity
+## InsiderSecurity
 
 | Job Title: |     | Software Engineer                              |
 | ---------- | --- | ---------------------------------------------- |
 | Company:   |     | [InsiderSecurity](https://insidersecurity.co/) |
 | Location:  |     | Kuala Lumpur, Malaysia                         |
-| Date:      |     | 06<sup>th</sup> May 2024 - Present             |
-
-<br>
+| Date:      |     | 06 May 2024 - Present             |
 
 InsiderSecurity's [Automated User and Entity Behavior Analytics (UEBA)](https://insidersecurity.co/products/automated-user-and-entity-behaviour-analytics/) detects malicious user activity within both on-premise and cloud infrastructures. It leverages machine learning and advanced behavior analytics to identify threats like hijacked accounts, insider data theft, and compromised servers. Automated UEBA provides early detection, enabling timely action to prevent data loss. It is designed to be highly automated, reducing the need for large IT security teams, and is deployed by large enterprises and governments.
 
-### Job Scope
+### Job Scope (InsiderSecurity)
 
 As a Software Engineer, I played a critical role in optimizing backend systems and enhancing the performance and scalability of Automated UEBA. My contributions spanned across automation, risk model improvements, and system integrations, ensuring high availability, security, and compliance with industry standards.
 
@@ -78,17 +76,15 @@ Mentored junior developers, providing guidance on best practices, code reviews, 
 
 ---
 
-# Huawei Technologies
+## Huawei Technologies
 
 | Job Title: |     | Global Software Service Engineer                             |
 | ---------- | --- | ------------------------------------------------------------ |
 | Company:   |     | [Huawei Technologies (Malaysia)](https://www.huawei.com/my/) |
 | Location:  |     | Kuala Lumpur, Malaysia                                       |
-| Date:      |     | 18<sup>th</sup> December 2023 - 30<sup>th</sup> April 2024   |
+| Date:      |     | 18 December 2023 - 30 April 2024   |
 
-<br>
-
-### Job Scope
+### Job Scope (Huawei Technologies)
 
 Embarking on my role as a Global Software Service Engineer at Huawei's Global Service Resource Center (GSRC) in Malaysia has been an immersive journey, defined by continuous learning and impactful contributions.
 
@@ -110,17 +106,15 @@ Transitioning to a more hands-on role, I am currently spearheading the testing p
 
 ---
 
-# The University of Edinburgh
+## The University of Edinburgh
 
 | Job Title: |     | Java Tutor and Marker                                   |
 | ---------- | --- | ------------------------------------------------------- |
 | Company:   |     | [The University of Edinburgh](https://www.ed.ac.uk/)    |
 | Location:  |     | Edinburgh, United Kingdom                               |
-| Date:      |     | 16<sup>th</sup> January 2023 - 31<sup>th</sup> May 2023 |
+| Date:      |     | 16 January 2023 - 31 May 2023 |
 
-<br>
-
-### Job Scope
+### Job Scope (The University of Edinburgh)
 
 During my time as a student at the University of Edinburgh, I had an opportunity to become a teaching assistant as a Java Tutor and Marker for a [first-year informatics course](http://www.drps.ed.ac.uk/20-21/dpt/cxinfr08029.htm). This role, which I undertook with enthusiasm and dedication, allowed me to develop not only a deep understanding of Java programming but also honed my communication and mentorship skills.
 
