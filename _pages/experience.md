@@ -17,7 +17,7 @@ nav_order: 2
 
 InsiderSecurity's [Automated User and Entity Behavior Analytics (UEBA)](https://insidersecurity.co/products/automated-user-and-entity-behaviour-analytics/) detects malicious user activity within both on-premise and cloud infrastructures. It leverages machine learning and advanced behavior analytics to identify threats like hijacked accounts, insider data theft, and compromised servers. Automated UEBA provides early detection, enabling timely action to prevent data loss. It is designed to be highly automated, reducing the need for large IT security teams, and is deployed by large enterprises and governments.
 
-As a Software Engineer, I played a critical role in optimizing backend systems and enhancing the performance and scalability of Automated UEBA. My contributions spanned across automation, risk model improvements, and system integrations, ensuring high availability, security, and compliance with industry standards.
+As a Software Engineer, I developed backend systems, cloud integrations, and data pipelines for the Automated UEBA platform, optimizing the core risk scoring engine, building Azure and AWS ingestion paths, expanding database activity monitoring, enhancing the log forwarding framework, and leading the Kubernetes migration of the on-premises codebase. My work also covered C++ sensor enhancements, self-service customer features, legacy system rewrites, and junior developer mentorship.
 
 ### Risk Model Optimization and Scalability
 
