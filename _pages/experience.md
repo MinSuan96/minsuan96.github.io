@@ -27,13 +27,23 @@ Single-handedly led efforts to optimize the core risk scoring engine, improving 
 
 Integrated the product with various cloud infrastructures, including Amazon Web Services (AWS) and Microsoft Azure, enhancing its capability to monitor and analyze activities across diverse environments. Traditionally, the product was designed to work with on-premise systems, but with the growing adoption of cloud services, this integration was crucial for comprehensive security monitoring. Many of the customers of InsiderSecurity have to comply with regulations that require monitoring of cloud activities, and in order to use the product, [it has to used under the GCC environment](https://www.tech.gov.sg/products-and-services/for-government-agencies/software-development/government-on-commercial-cloud), making this integration a key requirement.
 
+Key integrations include: an Azure Event Hub integration comprising a server-side reader for Azure SQL logs via Log Analytics Workspace, a Windows-side forwarder agent that reads from Azure Event Hubs and pushes logs over SSH, and a server-side listener that ingests those logs into the message queue -- all supporting Azure managed identity authentication; an agentless puller that fetches log files directly from Azure Blob Storage with optional PGP decryption before ingestion; and AWS CloudWatch integration for reading RDS MySQL slow-query and error logs via boto3.
+
 ### Sensorless Pipeline Development
 
 As mentioned, more and more customers are moving to the cloud, and some of them are sending logs directly from their systems. To cater to these customers, I developed a sensorless pipeline that allows the product to collect and analyze logs directly from cloud services and syslog without the need for on-premise sensors. This not only involved receiving logs from cloud services but also ensuring that the logs were processed and analyzed in a way that was consistent with the existing system. This development was crucial for expanding the product's market reach and ensuring that it could meet the needs of customers.
 
+### Database Activity Monitoring Expansion
+
+Expanded the product's Database Activity Monitoring (DAM) capabilities to support additional database platforms and cloud-hosted databases. This included building a full MariaDB log ingestion pipeline with a new audit log parser and ELK storage integration, adding DAM support for RDS MySQL Community Edition on AWS by reading slow-query and error logs from CloudWatch, and extending Azure SQL monitoring via both Log Analytics Workspace and Event Hub ingestion paths. Also rewrote the legacy Ruby SQL row-access anomaly detection system in Python, adding APScheduler-based scheduling, historical backfill support, and an integration test suite. Authored system configuration guides covering MySQL, PostgreSQL, MariaDB, OracleDB, and Azure SQL for both on-premises and cloud deployments.
+
+### Self Service File Monitoring
+
+Developed a self-service file monitoring feature that allows customers to configure their own file monitoring targets through the web UI, with full backend support across the server, sensor, and infrastructure deployment layers. The sensor was enhanced with wildcard path support for flexible file matching, and Windows file change detection was added to monitor settings and configuration files for modifications. Load testing was performed using a traffic generator to validate the system under high volumes.
+
 ### Sensor Improvements and Feature Enhancements
 
-Enhanced sensor capabilities by adding new features, such as support for additional log formats, auditing capabilities, log rotation, additional capability of receiving commands from the backend, bug fixes and more. The sensor is written in C++ and is responsible for collecting and forwarding log data to the backend system. These improvements not only increased the sensor's functionality but also improved its reliability and performance in diverse environments.
+Enhanced sensor capabilities by adding new features, such as support for additional log formats, auditing capabilities, log rotation, additional capability of receiving commands from the backend, bug fixes and more. The sensor is written in C++ and is responsible for collecting and forwarding log data to the backend system. These improvements not only increased the sensor's functionality but also improved its reliability and performance in diverse environments. Notable additions include integrating Windows Credential Manager for secure storage and retrieval of SSH passphrases (eliminating plaintext credentials in configuration files), timezone-aware logging to ensure consistent timestamp interpretation across deployment locales, and XML event log collection for forwarding in structured format.
 
 ### Automation of Sensor Role and Tag Assignment
 
@@ -41,7 +51,11 @@ Developed automated systems for the role and tag assignment of sensors, reducing
 
 ### Forwarder System Enhancement
 
-One of the key features of the product is its ability to forward logs to third-party systems and other log management solutions. I improved the forwarder system by utilizing RabbitMQ for message queuing and TCP connections for log transmission. This enhancement ensured reliable and efficient log forwarding, even in high-load scenarios, and improved the overall performance of the log forwarding system.
+One of the key features of the product is its ability to forward logs to third-party systems and other log management solutions. I built and extended the external forwarder framework, adding support for multiple log types including Windows, SSH, DNS, network device, and PowerShell logs. The forwarder uses RFC 5424 syslog formatting for standards compliance, RabbitMQ for message queuing, Redis for metrics tracking, and includes UEBA alert forwarding to external SOC platforms. Additional improvements include UDP large-message handling for high-login-count alerts, configurable filtering, and an XML event log forwarder that consumes from RabbitMQ and forwards via TCP/UDP syslog.
+
+### Storage Monitoring and Alerting
+
+Developed predictive alerting on storage consumption and a storage metrics collection pipeline to surface disk usage trends and trigger alerts before capacity is reached. Also built a log activity monitoring system that detects drops in application log rates to surface stalls or gaps in log collection early, enabling proactive response to data pipeline issues before they impact analysis.
 
 ### Improvement and Refactoring of Old, Inefficient Systems
 
@@ -50,6 +64,10 @@ Refactored and optimized legacy systems, such as SQL anomaly detection systems, 
 ### Frontend Development and Enhancements
 
 Contributed to the development and enhancement of the frontend user interface, improving user experience and accessibility. This included implementing interface for enabling/disabling parts of the system, improving the visualization of log sources, and enhancing the overall design and usability of the frontend. The frontend is built using Sinatra and Vue.js, and my contributions helped to make it more user-friendly and efficient.
+
+### Kubernetes Migration
+
+Led the full update of the on-premises codebase into the Kubernetes-based deployment. This large-scale migration covered shared libraries, core daemons, data forwarding, alerting, notifications, and algorithm modules across thousands of files. Established merge rules to reconcile environment differences (e.g., preserving Kubernetes ENV path references, maintaining centralized Redis clients with SSL support, keeping K8s-rewritten files intact), and documented pre-existing issues for deferred resolution. The migration ensured feature parity between the on-premises and containerized deployments.
 
 ### Issue Resolution and Maintenance
 
@@ -66,11 +84,13 @@ Mentored junior developers, providing guidance on best practices, code reviews, 
 - C++
 - JavaScript
 - MongoDB
+- Elasticsearch / Kibana (ELK)
 - RabbitMQ
 - Redis
 - Microsoft Azure
 - Amazon AWS
 - Kubernetes
+- Docker
 
 ---
 
