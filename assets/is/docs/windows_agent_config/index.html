@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> <html><body> <ul> <li><a href="#section-local-agent">Section: <code class="language-plaintext highlighter-rouge">[local agent]</code></a></li> <li><a href="#section-logs">Section: <code class="language-plaintext highlighter-rouge">[logs]</code></a></li> <li><a href="#section-log_rotate_path">Section: <code class="language-plaintext highlighter-rouge">[log_rotate_path]</code></a></li> <li><a href="#section-log_rotate_size">Section: <code class="language-plaintext highlighter-rouge">[log_rotate_size]</code></a></li> <li><a href="#section-auth">Section: <code class="language-plaintext highlighter-rouge">[auth]</code></a></li> <li><a href="#windows-event-logrelated-sections">Windows Event Log–Related Sections</a></li> <li><a href="#derived--implicit-limits--constants">Derived / Implicit Limits \&amp; Constants</a></li> <li><a href="#configuration-reload-behavior">Configuration Reload Behavior</a></li> <li><a href="#error-handling--logging">Error Handling \&amp; Logging</a></li> <li><a href="#best-practices-for-editing">Best Practices for Editing</a></li> <li><a href="#example-minimal-configuration">Example Minimal Configuration</a></li> <li><a href="#change-log-considerations">Change Log Considerations</a></li> <li><a href="#troubleshooting-tips">Troubleshooting Tips</a></li> <li><a href="#security-considerations">Security Considerations</a></li> <li><a href="#glossary">Glossary</a></li> </ul> <p>This document explains every configurable setting supported by the Windows agent as parsed in <code class="language-plaintext highlighter-rouge">windows2/cgagent/cgagent/config.cpp</code> (and the associated <code class="language-plaintext highlighter-rouge">configuration</code> struct in <code class="language-plaintext highlighter-rouge">main.h</code>). It maps INI sections/keys to the agent’s internal behavior, lists defaults (where determinable from code), valid value ranges, and operational notes.</p> <p>The sample file shown earlier (<code class="language-plaintext highlighter-rouge">agent_config</code>) follows classic INI semantics:</p> <ul> <li>Sections are in square brackets (e.g. <code class="language-plaintext highlighter-rouge">[local agent]</code>).</li> <li>Keys are case‐sensitive as per direct <code class="language-plaintext highlighter-rouge">strcmp</code> usage in code.</li> <li>Unknown keys are ignored (handler returns 0) and produce an error only if the INI parser is strict.</li> <li>Repeated keys override previous values (last one wins) unless logic intentionally preserves earlier entries (e.g. iptables rule re-add suppression).</li> </ul> <hr> <h2 id="section-local-agent">Section: <code class="language-plaintext highlighter-rouge">[local agent]</code> </h2> <p>Primary runtime, network capture, compression, retry and logging controls.</p> <table> <thead> <tr> <th>Key</th> <th>Purpose</th> <th>Type</th> <th>Default (code)</th> <th>Notes</th> </tr> </thead> <tbody> <tr> <td>scalable_role</td> <td>Logical role name for sensor</td> <td>string</td> <td>NULL</td> <td>Used wherever <code class="language-plaintext highlighter-rouge">config.scalable_role</code> is referenced (not in this file).</td> </tr> <tr> <td>sniffer_remote</td> <td>Analytic server IP</td> <td>string</td> <td>NULL (later default of port only)</td> <td>Freed/replaced on reload.</td> </tr> <tr> <td>sniffer_remote_port</td> <td>Analytic server port</td> <td>int</td> <td>22 (set in defaults)</td> <td>Change it to 441</td> </tr> <tr> <td>evtlog_rotate_size</td> <td>Rotation threshold for Windows Event Log file copy / spool</td> <td>integer (off_t)</td> <td> <code class="language-plaintext highlighter-rouge">EVTLOG_ROTATE_SIZE_BYTES</code> (10 MiB)</td> <td>Overridden by per-log rotate values if set.</td> </tr> </tbody> </table> <p>Notes:</p> <ul> <li>Memory ownership: any previously set string is freed then replaced (<code class="language-plaintext highlighter-rouge">strdup</code>). Ensure custom modifications also allocate new memory.</li> <li>Invalid / extreme compression settings are sanitized after file parse.</li> </ul> <hr> <h2 id="section-logs">Section: <code class="language-plaintext highlighter-rouge">[logs]</code> </h2> <p>Maps logical log types (pika routing keys) to file paths or glob patterns. Patterns use Windows <code class="language-plaintext highlighter-rouge">FindFirstFileA</code> semantics (wildcards <code class="language-plaintext highlighter-rouge">*</code> and <code class="language-plaintext highlighter-rouge">?</code>). For each matched file (up to <code class="language-plaintext highlighter-rouge">MAX_LOGS</code>, global cap), a log tracking slot is either:</p> <ul> <li>Reused (same file path already in that slot)</li> <li>Replaced (slot had a different file path)</li> <li>Newly initialized</li> </ul> <p>Per log record fields initialized/reset:</p> <ul> <li><code class="language-plaintext highlighter-rouge">file_path</code></li> <li> <code class="language-plaintext highlighter-rouge">type</code> (key name)</li> <li> <code class="language-plaintext highlighter-rouge">fp</code> (FILE pointer)</li> <li><code class="language-plaintext highlighter-rouge">last_pos</code></li> <li><code class="language-plaintext highlighter-rouge">checksum</code></li> <li> <code class="language-plaintext highlighter-rouge">tidx</code> (thread index)</li> <li><code class="language-plaintext highlighter-rouge">event_retryMicrosec</code></li> <li> <code class="language-plaintext highlighter-rouge">event_source</code> / <code class="language-plaintext highlighter-rouge">event_ids</code> </li> <li><code class="language-plaintext highlighter-rouge">etw_source</code></li> <li><code class="language-plaintext highlighter-rouge">event_data_format</code></li> <li> <code class="language-plaintext highlighter-rouge">log_rotate_path</code> / <code class="language-plaintext highlighter-rouge">log_rotate_size</code> </li> </ul> <p>Sockets tied to the same index are forcibly closed on reload to allow port/host changes.</p> <p>Typical keys seen:</p> <ul> <li><code class="language-plaintext highlighter-rouge">win_events</code></li> <li><code class="language-plaintext highlighter-rouge">share_events</code></li> <li><code class="language-plaintext highlighter-rouge">sys_events</code></li> <li><code class="language-plaintext highlighter-rouge">app_events</code></li> <li><code class="language-plaintext highlighter-rouge">os.windows.account_info</code></li> <li><code class="language-plaintext highlighter-rouge">app_events.db_mssql.mssql.db</code></li> <li><code class="language-plaintext highlighter-rouge">SQLEvent.db_mssql.mssql.db</code></li> <li><code class="language-plaintext highlighter-rouge">shared.event_viewer.sharepoint.app</code></li> <li><code class="language-plaintext highlighter-rouge">foundation.event_viewer.sharepoint.app</code></li> <li><code class="language-plaintext highlighter-rouge">site_audit.sharepoint.app</code></li> <li><code class="language-plaintext highlighter-rouge">evtlog.db_oracle.oracle.db</code></li> <li><code class="language-plaintext highlighter-rouge">powershell_events</code></li> <li><code class="language-plaintext highlighter-rouge">log.postgresql.db</code></li> </ul> <p>You can add additional custom log types, then refine behavior via subsequent sections (winevent, rotation, etc.) referencing the same key name.</p> <hr> <h2 id="section-log_rotate_path">Section: <code class="language-plaintext highlighter-rouge">[log_rotate_path]</code> </h2> <p>Provides an alternate rotation destination file per log type. Keys must match a defined log type from <code class="language-plaintext highlighter-rouge">[logs]</code>. Value is a file path used when rotation occurs. Stored in <code class="language-plaintext highlighter-rouge">logs[i].log_rotate_path</code>.</p> <hr> <h2 id="section-log_rotate_size">Section: <code class="language-plaintext highlighter-rouge">[log_rotate_size]</code> </h2> <p>Per-log override threshold (bytes) for rotation. Only applied if value ≥ <code class="language-plaintext highlighter-rouge">MIN_ROTATION_SIZE</code> (constant defined elsewhere). Stored in <code class="language-plaintext highlighter-rouge">logs[i].log_rotate_size</code>.</p> <hr> <h2 id="section-auth">Section: <code class="language-plaintext highlighter-rouge">[auth]</code> </h2> <p>Authentication / tunneling parameters.</p> <table> <thead> <tr> <th>Key</th> <th>Purpose</th> <th>Notes</th> </tr> </thead> <tbody> <tr> <td>user</td> <td>Username for SSH / remote channel</td> <td>Stored in <code class="language-plaintext highlighter-rouge">username</code> </td> </tr> <tr> <td>user_file</td> <td>File containing username (alternative)</td> <td>Stored in <code class="language-plaintext highlighter-rouge">username_file</code> </td> </tr> </tbody> </table> <p>Defaults:</p> <ul> <li> <code class="language-plaintext highlighter-rouge">password</code> = empty string</li> <li> <code class="language-plaintext highlighter-rouge">key_private</code> = <code class="language-plaintext highlighter-rouge">&lt;BINARY_DIR&gt;\key_private.txt</code> </li> <li> <code class="language-plaintext highlighter-rouge">key_public</code> = <code class="language-plaintext highlighter-rouge">&lt;BINARY_DIR&gt;\key_public.txt</code> </li> </ul> <hr> <h2 id="windows-event-logrelated-sections">Windows Event Log–Related Sections</h2> <p>Processed only after <code class="language-plaintext highlighter-rouge">[logs]</code> defines the key.</p> <table> <thead> <tr> <th>Section</th> <th>Purpose</th> <th>Value Format</th> <th>Stored Fields</th> </tr> </thead> <tbody> <tr> <td>winevent_security</td> <td>Attach security event IDs to a log key</td> <td>Comma-separated numeric IDs</td> <td> <code class="language-plaintext highlighter-rouge">event_source="Security"</code>, <code class="language-plaintext highlighter-rouge">event_ids</code> list</td> </tr> <tr> <td>winevent_application</td> <td>Application log events</td> <td>Comma-separated IDs</td> <td><code class="language-plaintext highlighter-rouge">event_source="Application"</code></td> </tr> <tr> <td>winevent_system</td> <td>System log events</td> <td>Comma-separated IDs</td> <td><code class="language-plaintext highlighter-rouge">event_source="System"</code></td> </tr> <tr> <td>extra_winevent</td> <td>Arbitrary event log channel + IDs + retry</td> <td><code class="language-plaintext highlighter-rouge">&lt;channel&gt;;;&lt;id list&gt;;;&lt;retryMicrosec&gt;</code></td> <td> <code class="language-plaintext highlighter-rouge">event_source</code>, <code class="language-plaintext highlighter-rouge">event_ids</code>, <code class="language-plaintext highlighter-rouge">event_retryMicrosec</code> </td> </tr> <tr> <td>extra_winevent_format</td> <td>Specify data format for extra winevent log</td> <td> <code class="language-plaintext highlighter-rouge">raw</code> / <code class="language-plaintext highlighter-rouge">text</code> / <code class="language-plaintext highlighter-rouge">xml</code> (string)</td> <td> <code class="language-plaintext highlighter-rouge">event_data_format</code> (consumer decides mapping)</td> </tr> <tr> <td>retroactive_updates_interval</td> <td>Poll interval for retroactive event pull</td> <td>integer seconds</td> <td><code class="language-plaintext highlighter-rouge">retroactive_updateInterval</code></td> </tr> <tr> <td>retroactive_max_history</td> <td>Max seconds back to pull historical events</td> <td>integer seconds</td> <td><code class="language-plaintext highlighter-rouge">retroactive_maxhistory</code></td> </tr> <tr> <td>SQLExtendedEvent</td> <td>ETW / SQL Extended Events channel</td> <td>Channel / session name</td> <td> <code class="language-plaintext highlighter-rouge">etw_source</code> (events enumerated elsewhere)</td> </tr> </tbody> </table> <p>Validation: If a key (log type) is not found among existing logs, an informational message is logged and the directive is ignored.</p> <hr> <h2 id="derived--implicit-limits--constants">Derived / Implicit Limits &amp; Constants</h2> <table> <thead> <tr> <th>Constant</th> <th>Meaning</th> </tr> </thead> <tbody> <tr> <td><code class="language-plaintext highlighter-rouge">MAX_LOGS</code></td> <td>Maximum total tracked log files (100 for binary forwarder; global usage for text).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">MAX_POLICY</code></td> <td>Maximum number of port policy entries (1000).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">COMPRESSION_BLOCK_SIZE</code></td> <td>Default compression block (50,000 bytes).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">COMPRESSION_BLOCK_SIZE_MAX</code></td> <td>Maximum allowed block (200,000 bytes).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">COMPRESSION_BLOCK_INTERVAL</code></td> <td>Default seconds between forced block send (3).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">EVTLOG_SENT_COMPLETE_SEC</code></td> <td>Default wait for complete event log send (600s).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">EVTLOG_ROTATE_SIZE_BYTES</code></td> <td>Default rotation threshold for event log copy (10 MiB).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">LOG_FORWARDER_MAX_RETRIES_COUNT</code></td> <td>Default retry attempts for log forwarding (20).</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">MIN_ROTATION_SIZE</code></td> <td>Minimum per-log rotation size for override (10 MiB).</td> </tr> </tbody> </table> <hr> <h2 id="configuration-reload-behavior">Configuration Reload Behavior</h2> <ul> <li>All logs are re-evaluated; indices beyond new total are cleaned (file handles closed, sockets closed, metadata cleared).</li> <li>For existing indices, if file path changes the old file is closed and state reset.</li> <li>Sockets for every (re)loaded log index are terminated to ensure correct remote parameters after reload.</li> <li>Compression sanity check applied post-parse.</li> </ul> <hr> <h2 id="error-handling--logging">Error Handling &amp; Logging</h2> <ul> <li>Unknown section/name pairs return 0 (ini parser may log/report).</li> <li>Misformatted <code class="language-plaintext highlighter-rouge">extra_winevent</code> entries (not exactly two delimiters <code class="language-plaintext highlighter-rouge">;;</code>) produce an error log and are discarded.</li> <li>Missing log type references (winevent / rotation / retroactive / etc.) yield informational log lines and are ignored.</li> </ul> <hr> <h2 id="best-practices-for-editing">Best Practices for Editing</h2> <ol> <li>Define base log keys in <code class="language-plaintext highlighter-rouge">[logs]</code> before referencing them in other sections.</li> <li>Keep <code class="language-plaintext highlighter-rouge">compression_block</code> reasonable; excessive values revert to default if over max.</li> <li>Avoid setting <code class="language-plaintext highlighter-rouge">default_record_all = 1</code> unless necessary; may cause high bandwidth and storage usage.</li> <li>Use port policies sparingly; each additional entry increases lookup overhead.</li> <li>When introducing new binary log forwarding patterns, keep total under <code class="language-plaintext highlighter-rouge">MAX_LOGS</code>.</li> <li>Leverage <code class="language-plaintext highlighter-rouge">retroactive_max_history</code> cautiously to prevent large historical pulls on restart.</li> </ol> <hr> <h2 id="example-minimal-configuration">Example Minimal Configuration</h2> <pre><code class="language-agent_config"># Copyright Insider Security Pte Ltd 2015
+
+# Windows Agent
+
+[local agent]
+
+scalable_role = local-test
+
+# enable_network_sniffer = 1
+
+pcap_filter = ip    ;make sure it does not monitor its own traffic
+
+ignore_lo_interface = 1
+
+promiscuous = 0
+default_record_ignore = 0
+default_record_flow = 1
+default_record_basic = 0
+default_record_all = 0
+use_udp = 0
+
+sniffer = 127.0.0.1
+sniffer_port =  1010
+log_forward_port =  1013
+
+
+sniffer_remote = 192.168.8.133
+sniffer_remote_port = 441
+
+enable_compression = 1
+compression_block = 50000
+compression_interval = 3
+
+evtlog_rotate_size = 10000000000000000000000
+
+# ===================================================================================================
+#
+# Port policy configuration
+#
+# [port no] = [incoming sport] [incoming dport] [outgoing sport] [outgoing dport]
+#
+# i means drop
+# f means record flow only, ie, ip addresses, data transfer. Flow are send per connection.
+# s means record stats only, ie packet len + ip src + ip dest + timestamp. Stats are send per packet
+# a means record all. This is send per packet.
+
+
+# for example
+#
+# 22 = sisa
+# this means for port 22
+#
+# record stats only if incoming source port is 22
+# ignore if incoming dest port is 22
+# record stats only if outgoing source port is 22
+# record all if outgoing dest port is 22
+#
+# order of priority if multiple fields match for a packet : record all, record stats, record flow, ignore
+
+[tcp ports]
+# maximum 1000 ports allowed, extra ports are rejected
+
+22 = ffff
+80 = ffff
+
+[udp ports]
+53 = aaaa
+
+
+[logs]
+log.postgresql.db = C:\Program Files\PostgreSQL\16\data\log\postgresql.log
+powershell_events = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\powershell_events.log
+win_events = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\sec.log
+#share_events = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\share.log
+#sys_events = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\sys.log
+#app_events = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\app_win.log
+#os.windows.account_info = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\account_info.log
+#app_events.db_mssql.mssql.db = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\app.log
+#SQLEvent.db_mssql.mssql.db = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\etw_sql.log
+#shared.event_viewer.sharepoint.app = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\event_sp_shared.log
+#foundation.event_viewer.sharepoint.app = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\event_sp_foundation.log
+#site_audit.sharepoint.app = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\event_sp_site_audit.log
+#evtlog.db_oracle.oracle.db = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\sys_oracle_db.log
+#win_events_xml = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\sec_xml.log
+#share_events_xml = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\share_xml.log
+#sys_events_xml = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\sys_xml.log
+#app_events_xml = C:\Users\testuser\OneDrive\Desktop\Work\cgagent\logs\app_win_xml.log
+
+[log_rotate_path]
+log.postgresql.db = C:\Program Files\PostgreSQL\16\data\log\postgresql_backup.log
+
+[log_rotate_size]
+log.postgresql.db = 1100000
+
+[winevent_security]
+win_events = 4740,4728,4732,4756,4720,4722,4735,4625,4648,4624,4634,1102,4768,4769,4672,4725,4698,4699,4704,4705,4729,4733,4688,4731,4727,4754,4757,4734,4758,4730,4715,4719,4902,4904,4905,4906,4907,4912,4867,4866,4865,4716,4707,4706,6144,4726,4767,4697,5024,5025,5030,6416,4946,4947,4948,4950,4663,4954,4700,4701,4702
+share_events = 5140,5142,5143,5144,5145
+#win_events_xml = 4740,4728,4732,4756,4720,4722,4735,4625,4648,4624,4634,1102,4768,4769,4672,4725,4698,4699,4704,4705,4729,4733,4688,4731,4727,4754,4757,4734,4758,4730,4715,4719,4902,4904,4905,4906,4907,4912,4867,4866,4865,4716,4707,4706,6144,4726,4767,4697,5024,5025,5030,6416,4946,4947,4948,4950,4663,4954,4700,4701,4702
+#share_events_xml = 5140,5142,5143,5144,5145
+
+[winevent_system]
+sys_events = 7040,7045,104,1074,7036,6006,6008,109,13,12
+#sys_events_xml = 7040,7045,104,1074,7036,6006,6008,109,13,12
+
+[auth]
+user = remote_cg_agent
+user_file = remote_cg_file
+
+[winevent_application]
+app_events = 1040,1042,1033,11707,11708
+#app_events.db_mssql.mssql.db = 18454,18453,18455,18456,33205
+#app_events_xml = 1040,1042,1033,11707,11708
+
+[SQLExtendedEvent]
+#SQLEvent.db_mssql.mssql.db = XE_DEFAULT_ETW_IS
+
+[extra_winevent]
+powershell_events = Microsoft-Windows-PowerShell/Operational;;4104,40962,40961,53504;;0
+# Format: key = &lt;source&gt;;;&lt;event ids&gt;;;&lt;retry time&gt;
+#shared.event_viewer.sharepoint.app = Microsoft-SharePoint Products-Shared/Operational;;6753,6754,6756,6757,6758, 7039,7041, 8087;;900000
+#foundation.event_viewer.sharepoint.app = Microsoft-SharePoint Products-Shared/Audit;;8324,8325,8326;;900000
+#evtlog.db_oracle.oracle.db = Application;;34;;900000
+
+[retroactive_updates_interval]
+win_events = 1
+share_events = 10
+sys_events = 0
+app_events = 10
+#win_events_xml = 1
+#share_events_xml = 10
+#sys_events_xml = 0
+#app_events_xml = 10
+
+[retroactive_max_history]
+win_events = 3600
+share_events = 3600
+sys_events = 3600
+app_events = 3600
+#win_events_xml = 3600
+#share_events_xml = 3600
+#sys_events_xml = 3600
+#app_events_xml = 3600
+
+#[extra_winevent_format]
+#win_events_xml = xml
+#share_events_xml = xml
+#sys_events_xml = xml
+#app_events_xml = xml
+</code></pre> <hr> <h2 id="change-log-considerations">Change Log Considerations</h2> <p>When adding new keys in code:</p> <ul> <li>Extend <code class="language-plaintext highlighter-rouge">config_handler</code> with a new <code class="language-plaintext highlighter-rouge">MATCH</code> block or section case.</li> <li>Update this document to reflect semantics, defaults, and interactions.</li> <li>If string, ensure previous memory freed before <code class="language-plaintext highlighter-rouge">strdup</code>.</li> <li>If integer with constraints, sanitize immediately and log adjustments.</li> </ul> <hr> <h2 id="troubleshooting-tips">Troubleshooting Tips</h2> <table> <thead> <tr> <th>Symptom</th> <th>Likely Cause</th> <th>Resolution</th> </tr> </thead> <tbody> <tr> <td>Log not forwarding</td> <td>Not defined in <code class="language-plaintext highlighter-rouge">[logs]</code> or exceeded <code class="language-plaintext highlighter-rouge">MAX_LOGS</code> </td> <td>Check logs for “key not found” messages; reduce count.</td> </tr> <tr> <td>Event IDs ignored</td> <td>Section processed before <code class="language-plaintext highlighter-rouge">[logs]</code> key exists</td> <td>Ensure order: <code class="language-plaintext highlighter-rouge">[logs]</code> first.</td> </tr> <tr> <td>High CPU / bandwidth</td> <td> <code class="language-plaintext highlighter-rouge">default_record_all=1</code> or many <code class="language-plaintext highlighter-rouge">aaaa</code> port policies</td> <td>Reduce scope or switch to flow/stat modes.</td> </tr> <tr> <td>No compression effect</td> <td> <code class="language-plaintext highlighter-rouge">enable_compression=0</code> or block never fills</td> <td>Enable and/or reduce <code class="language-plaintext highlighter-rouge">compression_block</code> for frequent sends.</td> </tr> <tr> <td>Repeated blacklist_rule ignored</td> <td>Duplicate detection logic</td> <td>Change rule string or remove existing rule entry.</td> </tr> </tbody> </table> <hr> <h2 id="security-considerations">Security Considerations</h2> <ul> <li>Large <code class="language-plaintext highlighter-rouge">evtlog_rotate_size</code> or disabled rotation can retain sensitive data longer on disk.</li> <li>Ensure key files (<code class="language-plaintext highlighter-rouge">key_private.txt</code>, <code class="language-plaintext highlighter-rouge">key_public.txt</code>) have restricted ACLs.</li> <li>Avoid overly permissive glob patterns in <code class="language-plaintext highlighter-rouge">[logs]</code> that could capture confidential files unintentionally.</li> </ul> <hr> <h2 id="glossary">Glossary</h2> <ul> <li>Flow: Aggregated connection record summarizing bytes/packets transferred over a TCP/UDP 5-tuple direction.</li> <li>Stats: Lightweight per-packet metadata (length, endpoints, timestamp) without full payload.</li> <li>All: Full per-packet capture (payload + metadata) as permitted by logic.</li> </ul> <hr> <p>If any additional internal modules introduce new fields, update both <code class="language-plaintext highlighter-rouge">configuration</code> struct and this reference accordingly.</p> </body></html>
