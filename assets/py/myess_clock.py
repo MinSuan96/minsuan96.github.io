@@ -7,13 +7,14 @@ Usage:
     python myess_clock.py              # Interactive mode
     python myess_clock.py --action in  # Clock in directly
     python myess_clock.py --action out # Clock out directly
+    python myess_clock.py --action submit  # Submit timecard for approval
 """
 
 import argparse
 import base64
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 
@@ -110,6 +111,68 @@ def get_office_list(app_token: str) -> list[dict]:
     return data.get("result", [])
 
 
+def get_timecard_by_week(app_token: str, from_date: str, to_date: str) -> list[dict]:
+    """
+    Get timecard entries for a specific week.
+
+    Args:
+        app_token:  The authentication token from login.
+        from_date:  Start of week as YYYY-MM-DD (Sunday).
+        to_date:    End of week as YYYY-MM-DD (Saturday).
+
+    Returns:
+        List of daily timecard entry dicts (typically 7, one per day).
+    """
+    resp = requests.get(
+        f"{API_BASE}/timecard/timeCardTableByWeek",
+        params={"fromDate": from_date, "toDate": to_date, "staffId": ""},
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+
+    if data.get("statusCode") == 200:
+        return data.get("result", [])
+    return []
+
+
+def submit_timecard(app_token: str, timecard_entries: list[dict]) -> dict:
+    """
+    Submit a week's timecard entries for approval.
+
+    The API expects the full array of daily timecard entries (as returned by
+    get_timecard_by_week) to be POSTed as the JSON body.
+
+    Args:
+        app_token:        The authentication token from login.
+        timecard_entries:  List of daily timecard entry dicts for the week.
+
+    Returns:
+        dict with 'success' bool and 'message' str.
+    """
+    resp = requests.post(
+        f"{API_BASE}/timecard/staffTimeCardSave",
+        params={"staffId": ""},
+        json=timecard_entries,
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+
+    if data.get("statusCode") == 200 and data.get("status") == "OK":
+        result = data.get("result", {})
+        saved = result.get("saved_records", 0)
+        total = result.get("total_records", 0)
+        return {
+            "success": result.get("success", True),
+            "message": result.get("message", f"Saved {saved}/{total} records"),
+        }
+
+    return {"success": False, "message": data.get("result", "Submit failed")}
+
+
 def clock_action(
     app_token: str,
     action_type: int,
@@ -171,6 +234,22 @@ def clock_action(
 # =============================================================================
 # Helper Functions
 # =============================================================================
+def get_week_boundaries(date: datetime = None) -> tuple[str, str]:
+    """
+    Get the Sunday–Saturday week boundaries for a given date.
+
+    MyESS weeks run Sunday to Saturday. Returns the bounding dates as
+    YYYY-MM-DD strings.
+    """
+    if date is None:
+        date = datetime.now()
+    # weekday(): Monday=0 … Sunday=6.  We want Sunday as start of week.
+    days_since_sunday = (date.weekday() + 1) % 7
+    sunday = date - timedelta(days=days_since_sunday)
+    saturday = sunday + timedelta(days=6)
+    return sunday.strftime("%Y-%m-%d"), saturday.strftime("%Y-%m-%d")
+
+
 def calculate_hours_worked(last_clock_in_time: str, last_clock_in_date: str) -> float:
     """Calculate hours worked since last clock-in."""
     clock_in_dt = datetime.strptime(
@@ -223,6 +302,7 @@ def interactive_mode(app_token: str, staff_name: str):
         print("  [2] Clock Out")
     print("  [3] Check Status")
     print("  [4] List Locations")
+    print("  [5] Submit Timecard")
     print("  [0] Exit")
 
     choice = input("\nSelect action: ").strip()
@@ -240,6 +320,8 @@ def interactive_mode(app_token: str, staff_name: str):
         print("\nAvailable Locations:")
         for office in offices:
             print(f"  - {office['item']}")
+    elif choice == "5":
+        do_submit_timecard(app_token)
     elif choice == "0":
         print("Goodbye!")
         sys.exit(0)
@@ -320,6 +402,134 @@ def do_clock_out(app_token: str, last_entry: dict = None, location: str = None, 
         print(f"  FAILED: {result['message']}")
 
 
+def do_submit_timecard(app_token: str):
+    """
+    List recent weekly timecards and let the user submit one.
+
+    Displays the last 5 weeks, defaults to the most recent week with Draft
+    entries, shows a detail summary, then submits on confirmation.
+    """
+    DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    NUM_WEEKS = 5
+
+    # ------------------------------------------------------------------
+    # 1. Fetch recent weeks
+    # ------------------------------------------------------------------
+    today = datetime.now()
+    weeks: list[dict] = []
+
+    for i in range(NUM_WEEKS):
+        ref_date = today - timedelta(weeks=i)
+        from_date, to_date = get_week_boundaries(ref_date)
+        entries = get_timecard_by_week(app_token, from_date, to_date)
+
+        total_hours = sum(float(e.get("FinalWorkedHours", 0)) for e in entries)
+
+        # Determine overall week status
+        statuses = {e.get("ApprovalStatus", "Draft") for e in entries}
+        if "Approved" in statuses and len(statuses) == 1:
+            week_status = "Approved"
+        elif "Submitted" in statuses and "Draft" not in statuses:
+            week_status = "Submitted"
+        else:
+            week_status = "Draft"
+
+        weeks.append({
+            "from_date": from_date,
+            "to_date": to_date,
+            "entries": entries,
+            "total_hours": total_hours,
+            "status": week_status,
+        })
+
+    # ------------------------------------------------------------------
+    # 2. Display week list
+    # ------------------------------------------------------------------
+    # Find the default (first Draft week)
+    default_idx = None
+    for idx, w in enumerate(weeks):
+        if w["status"] == "Draft":
+            default_idx = idx
+            break
+
+    print("\nAvailable Timecards:")
+    print("-" * 60)
+    for idx, w in enumerate(weeks):
+        from_dt = datetime.strptime(w["from_date"], "%Y-%m-%d")
+        to_dt = datetime.strptime(w["to_date"], "%Y-%m-%d")
+        label = f"{from_dt.strftime('%b %d')} - {to_dt.strftime('%b %d, %Y')}"
+        marker = "  <-- default" if idx == default_idx else ""
+        print(f"  [{idx + 1}] {label}  | {w['total_hours']:5.1f}h | {w['status']}{marker}")
+
+    if default_idx is None:
+        print("\n  No Draft timecards found in the last 5 weeks.")
+        return
+
+    # ------------------------------------------------------------------
+    # 3. User selects a week
+    # ------------------------------------------------------------------
+    prompt_text = f"\nSelect week to submit [{default_idx + 1}]: "
+    choice = input(prompt_text).strip()
+
+    if choice == "":
+        selected_idx = default_idx
+    else:
+        try:
+            selected_idx = int(choice) - 1
+            if not (0 <= selected_idx < len(weeks)):
+                print("Invalid choice.")
+                return
+        except ValueError:
+            print("Invalid choice.")
+            return
+
+    selected = weeks[selected_idx]
+
+    if selected["status"] != "Draft":
+        print(f"\n  This week is already '{selected['status']}'. Nothing to submit.")
+        return
+
+    if not selected["entries"]:
+        print("\n  No timecard entries found for this week.")
+        return
+
+    # ------------------------------------------------------------------
+    # 4. Show detail summary
+    # ------------------------------------------------------------------
+    from_dt = datetime.strptime(selected["from_date"], "%Y-%m-%d")
+    to_dt = datetime.strptime(selected["to_date"], "%Y-%m-%d")
+    project = selected["entries"][0].get("ProjectName", "N/A") if selected["entries"] else "N/A"
+
+    print(f"\nWeek: {from_dt.strftime('%b %d')} - {to_dt.strftime('%b %d, %Y')}")
+    print(f"  Project: {project}")
+    print()
+
+    for entry in sorted(selected["entries"], key=lambda e: e["WorkDate"]):
+        edate = datetime.strptime(entry["WorkDate"], "%Y-%m-%d")
+        day_name = DAY_NAMES[int(edate.strftime("%w"))]  # %w: 0=Sun
+        hours = float(entry.get("FinalWorkedHours", 0))
+        status = entry.get("ApprovalStatus", "Draft")
+        print(f"  {day_name} {edate.strftime('%d')}: {hours:5.1f}h  ({status})")
+
+    print(f"\n  Total: {selected['total_hours']:.1f}h")
+
+    # ------------------------------------------------------------------
+    # 5. Confirm and submit
+    # ------------------------------------------------------------------
+    confirm = input("\nSubmit this timecard? (y/N): ").strip().lower()
+    if confirm != "y":
+        print("Cancelled.")
+        return
+
+    print("\nSubmitting timecard...")
+    result = submit_timecard(app_token, selected["entries"])
+
+    if result["success"]:
+        print(f"  {result['message']}")
+    else:
+        print(f"  FAILED: {result['message']}")
+
+
 # =============================================================================
 # Main
 # =============================================================================
@@ -334,6 +544,7 @@ Examples:
   python myess_clock.py --action out             # Clock out
   python myess_clock.py --action in --location Home
   python myess_clock.py --action status          # Check current status
+  python myess_clock.py --action submit          # Submit timecard for approval
   python myess_clock.py -u ISS280 -p mypass --action in
         """,
     )
@@ -341,8 +552,8 @@ Examples:
     parser.add_argument("-p", "--password", help="Password")
     parser.add_argument(
         "--action",
-        choices=["in", "out", "status"],
-        help="Action to perform: in (clock-in), out (clock-out), status (check status)",
+        choices=["in", "out", "status", "submit"],
+        help="Action to perform: in, out, status, submit (submit timecard)",
     )
     parser.add_argument(
         "--location", default=DEFAULT_LOCATION, help=f"Location (default: {DEFAULT_LOCATION})"
@@ -402,6 +613,8 @@ Examples:
             print_status(last_entry)
             sys.exit(0)
         do_clock_out(app_token, last_entry, location=args.location, remarks=args.remarks)
+    elif args.action == "submit":
+        do_submit_timecard(app_token)
 
 
 if __name__ == "__main__":
