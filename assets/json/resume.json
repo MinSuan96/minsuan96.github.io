@@ -7,7 +7,7 @@
     "email": "minsuan1104@hotmail.com",
     "phone": "",
     "url": "",
-    "summary": "I am a Software Engineer at InsiderSecurity, building backend systems, cloud integrations, and data pipelines for an enterprise UEBA cybersecurity platform. Previously, I worked as a Global Technical Service Engineer at Huawei, providing software services for the Convergent Billing System. I graduated from The University of Edinburgh, where I focused on machine learning, IoT, algorithms, and reinforcement learning. I've also led software projects and taught informatics students. In my free time, I enjoy video games and board games.",
+    "summary": "Machine Learning Platform Engineer at Tencent Games with experience building intelligent agent systems and cybersecurity software. University of Edinburgh graduate specializing in machine learning, reinforcement learning, and full-stack development.",
     "location": {
       "countryCode": "MY",
       "address": "Malaysia"
@@ -22,10 +22,20 @@
   },
   "work": [
     {
+      "name": "Tencent",
+      "position": "Machine Learning Platform Engineer",
+      "startDate": "2026-04-27",
+      "endDate": "",
+      "highlights": [],
+      "summary": null,
+      "url": "https://www.linkedin.com/company/tencentglobal/",
+      "location": "WP. Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia"
+    },
+    {
       "name": "InsiderSecurity",
       "position": "Software Engineer",
       "startDate": "2024-05-31",
-      "endDate": "",
+      "endDate": "2026-04-17",
       "highlights": [],
       "summary": null,
       "url": "https://www.linkedin.com/company/6403295",
