@@ -27,7 +27,7 @@ Integrated the knowledge management system with multiple data sources to enable 
 
 ### AI Platform Audio System Enhancements
 
-Updated the text-to-speech (TTS) system of the AI platform from whisper to faster whisper, optimizing both performance and code quality. The system is designed to work alongside LLMs, invoked by users through natural language instructions, enabling seamless voice generation within conversational AI workflows.
+Updated the text-to-speech (TTS) system of the AI platform from whisper to WhisperX, optimizing both performance and code quality. The system is designed to work alongside LLMs, invoked by users through natural language instructions, enabling seamless voice generation within conversational AI workflows.
 
 ### New Feature Implementation
 
@@ -40,7 +40,7 @@ Developed two new capabilities for the AI platform:
 
 - Python
 - AI Platform
-- Faster Whisper
+- WhisperX
 - FFmpeg
 - Elasticsearch / Kibana (ELK)
 - Knowledge Management Systems
