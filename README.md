@@ -1,6 +1,6 @@
 ## Overview
 
-Welcome to my personal website! This space is dedicated to sharing my journey, experiences, and projects in the field of computer science. Visit the [site](minsuan96.github.io).
+Welcome to my personal website! This space is dedicated to sharing my journey, experiences, and projects in the field of computer science. Visit the [site](https://minsuan96.github.io/) to explore my work and learn more about me.
 
 ## About Me
 
@@ -8,7 +8,7 @@ Explore the "About" page to learn more about who I am, my educational background
 
 ## Blog
 
-I regularly update the blog with posts about my experiences, inspirations, and projects. Check out the latest [posts](minsuan96.github.io/blog/).
+I regularly update the blog with posts about my experiences, inspirations, and projects. Check out the latest [posts](https://minsuan96.github.io/blog/) to get a glimpse of what I've been up to.
 
 Stay tuned for more insightful content!
 
