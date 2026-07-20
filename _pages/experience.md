@@ -53,7 +53,7 @@ Developed two new capabilities for the AI platform:
 | ---------- | --- | ---------------------------------------------- |
 | Company:   |     | [InsiderSecurity](https://insidersecurity.co/) |
 | Location:  |     | Kuala Lumpur, Malaysia                         |
-| Date:      |     | 06 May 2024 - Present             |
+| Date:      |     | May 2024 - April 2026             |
 
 InsiderSecurity's [Automated User and Entity Behavior Analytics (UEBA)](https://insidersecurity.co/products/automated-user-and-entity-behaviour-analytics/) detects malicious user activity within both on-premise and cloud infrastructures. It leverages machine learning and advanced behavior analytics to identify threats like hijacked accounts, insider data theft, and compromised servers. Automated UEBA provides early detection, enabling timely action to prevent data loss. It is designed to be highly automated, reducing the need for large IT security teams, and is deployed by large enterprises and governments.
 
@@ -140,7 +140,7 @@ Mentored junior developers, providing guidance on best practices, code reviews, 
 | ---------- | --- | ------------------------------------------------------------ |
 | Company:   |     | [Huawei Technologies (Malaysia)](https://www.huawei.com/my/) |
 | Location:  |     | Kuala Lumpur, Malaysia                                       |
-| Date:      |     | 18 December 2023 - 30 April 2024   |
+| Date:      |     | December 2023 - April 2024   |
 
 Embarking on my role as a Global Software Service Engineer at Huawei's Global Service Resource Center (GSRC) in Malaysia has been an immersive journey, defined by continuous learning and impactful contributions.
 
