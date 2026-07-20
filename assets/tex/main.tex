@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}       % set main text size
+\usepackage[letterpaper,                % set paper size to letterpaper. change to a4paper for resumes outside of North America
+top=0.5in,                          % specify top page margin
+bottom=0.5in,                       % specify bottom page margin
+left=0.5in,                         % specify left page margin
+right=0.5in]{geometry}              % specify right page margin
+                       
+\usepackage{XCharter}               % set font. comment this line out if you want to use the default LaTeX font Computer Modern
+\usepackage[T1]{fontenc}            % output encoding
+\usepackage[utf8]{inputenc}         % input encoding
+\usepackage{enumitem}               % enable lists for bullet points: itemize and \item
+\usepackage[hidelinks]{hyperref}    % format hyperlinks
+\usepackage{titlesec}               % enable section title customization
+\raggedright                        % disable text justification
+\pagestyle{empty}                   % disable page numbering
+
+% ensure PDF output will be all-Unicode and machine-readable
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+% format section headings: bolding, size, white space above and below
+\titleformat{\section}{\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule\vspace{-6.5pt}]
+
+% format bullet points: size, white space above and below, white space between bullets
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+\setlist[itemize]{itemsep=-2pt, leftmargin=12pt, topsep=7pt} %%% Test various topsep values to fix vertical spacing errors
+
+% resume starts here
+\begin{document}
+
+% name
+\centerline{\Huge Teh Min Suan}
+
+\vspace{5pt}
+
+% contact information
+\centerline{\href{mailto:minsuan1104@hotmail.com}{minsuan1104@hotmail.com} | \href{https://minsuan96.github.io/}{https://minsuan96.github.io/} | {+60129525568}}
+
+\vspace{-10pt}
+
+% education section
+\section*{Education}
+\textbf{University of Edinburgh} -- MSc in Computer Science \hfill Aug 2023 \\
+\textbf{University of Edinburgh} -- BSc in Computer Science \hfill June 2022 \\
+\textbf{Sunway College} -- Cambridge International A-Level \hfill June 2018
+
+\vspace{-6.5pt}
+
+% experience section
+\section*{Experience}
+
+\textbf{Machine Learning Platform Engineer,} {\href{https://www.tencent.com/}{\underline{Tencent}}} -- Kuala Lumpur, Malaysia \hfill April 2026 -- Present \\
+\vspace{-9pt}
+\begin{itemize}
+  \item \textbf{TTS Engine Upgrade:} Upgraded text-to-speech engine from Whisper to \href{https://github.com/m-bain/whisperx}{\underline{WhisperX}}, improving inference speed and optimizing code quality for LLM-integrated conversational workflows.
+  \item \textbf{Audio Feature Development:} Built LLM-controlled sound effect application with JSON parameter configuration and a multitrack audio mixer supporting both JSON-driven and natural language instructions.
+  \item \textbf{Knowledge Management Proxy Backend:} Implemented proxy backend for an AI web frontend providing tailored interaction with the internal knowledge base.
+  \item \textbf{Multi-Source Data Crawling:} Engineered automated crawler integrating internal wiki and media platforms for continuous resource synchronization, ensuring AI agents consume fresh cross-platform data.
+\end{itemize}
+
+\textbf{Software Engineer,} {\href{https://insidersecurity.co/}{\underline{InsiderSecurity}}} -- Kuala Lumpur, Malaysia \hfill May 2024 -- April 2026 \\
+\vspace{-9pt}
+\begin{itemize}
+  \item \textbf{Core Risk Engine Optimization:} Led end-to-end performance overhaul (multiprocessing,
+code streamlining, cache redesign) achieving \href{https://minsuan96.github.io/assets/pdf/BNWEngineV4_Results.pdf}{\underline{$\geq 140\%$ throughput improvement}}.
+  \item \textbf{Cloud Integration:} Extended product from on-prem only to hybrid/cloud
+by integrating AWS and Azure data sources, enabling compliance (e.g., \href{https://www.tech.gov.sg/products-and-services/for-government-agencies/software-development/government-on-commercial-cloud}{\underline{GCC
+requirements}}) and broadening deployment scenarios.
+  \item \textbf{New Log Ingestion Pipeline:} Designed and implemented a cloud and syslog-based ingestion path eliminating the need for on-prem sensors, expanding addressable market
+and simplifying onboarding.
+\item \textbf{Legacy System Refactoring and ML Enhancements:} Modernized SQL anomaly detection
+and other legacy components with cleaner architecture, optimized queries, and MLbased improvements.
+\item \textbf{Automated Sensor Configuration:} Built Redis-backed automation to classify and
+tag sensors dynamically, removing manual configuration effort and reducing
+misconfiguration risk at scale.
+\end{itemize}
+
+\textbf{Global Software Service Engineer,} {\href{https://carrier.huawei.com/en/products/service-and-software/software-business}{\underline{Huawei Technologies}}} -- Kuala Lumpur, Malaysia \hfill Dec 2023 -- April 2024 \\
+\vspace{-9pt}
+\begin{itemize}
+  \item Gathered client requirements, verified data compatibility, and supported end-to-end data and system migration planning for major software upgrade projects.
+\end{itemize}
+
+\textbf{Java Tutor and Marker,} {\href{https://www.ed.ac.uk/}{\underline{University of Edinburgh}}} -- Edinburgh, United Kingdom \hfill Jan 2023 -- May 2023 \\
+\vspace{-9pt}
+\begin{itemize}
+  \item Hosted weekly tutorial sessions, guided students through Java course materials, evaluated courseworks and offered personalized feedback on tutorials and courseworks.
+\end{itemize}
+
+% \textbf{Job Title,} \href{https://www.fstl1992.com/}{Company} -- City, ST \hfill XXXX -- XXXX \\
+% \vspace{-9pt}
+
+\vspace{-18.5pt}
+
+% projects section
+\section*{Projects}
+\textbf{Algorithmic Trading System} \\
+\vspace{-9pt}
+\begin{itemize}
+  \item Built a \textbf{Python} algorithmic trading system with historical and real‑time execution via the \href{https://openapi.moomoo.com/moomoo-api-doc/en/intro/intro.html}{\underline{MooMoo API}}.
+  \item Leveraged \textbf{multithreading} in free-thread python 3.14 to implement and evaluate multiple alpha strategies.
+\end{itemize}
+
+\textbf{Personal Portfolio Website} \hfill \href{https://minsuan96.github.io/}{https://minsuan96.github.io/} \\
+\vspace{-9pt}
+\begin{itemize}
+  \item Designed and developed a personal website using \href{https://jekyllrb.com/}{\underline{Jekyll}} and hosted on \textbf{GitHub Pages}, showcasing clean layout, responsive design, and maintainable content structure.
+\end{itemize}
+
+
+% alternate formatting for projects section
+% \section*{Projects}
+% \begin{itemize}
+%   \item \textbf{QuantSoftware Toolkit:} Open source Python library for data analysis and machine learning for finance
+%   \item \textbf{GitHub Visualization:} Data visualization of Git Log data using D3 to analyze project trends over time
+%   \item \textbf{Recommendation System:} Music and movie recommender systems using collaborative filtering on public datasets
+%   \item \textbf{Mac Setup:} Book that gives step by step instructions on setting up developer environment on Mac OS
+% \end{itemize}
+
+\vspace{-18.5pt}
+
+% skills section
+\section*{Languages and Skills}
+\textbf{Programming Languages:} Python, Ruby, C++, C, JavaScript, Java, Kotlin, Haskell, Solidity, SQL \\
+\textbf{Techniques}: Machine Learning, MongoDB, RabbitMQ, Redis, Git, Linux, Azure, AWS, Kubernetes \\
+\textbf{Natural Languages:} English, Mandarin (Chinese), Malay
+
+\end{document}
