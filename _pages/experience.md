@@ -13,7 +13,7 @@ nav_order: 2
 | ---------- | --- | ---------------------------------------------------- |
 | Company:   |     | [Tencent](https://www.tencent.com/)                  |
 | Location:  |     | Kuala Lumpur, Malaysia                               |
-| Date:      |     | April 2026 - Present                                 |
+| Date:      |     | May 2026 - Present                                 |
 
 As a Machine Learning Platform Engineer in Tencent's gaming department, I develop and maintain internal AI tools and platforms used by staff for content creation and knowledge management. My work spans an AI platform for generative audio workflows, an AI-powered knowledge management web frontend, and data integration pipelines for AI agents.
 
