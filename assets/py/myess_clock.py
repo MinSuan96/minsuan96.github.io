@@ -16,7 +16,7 @@ import json
 import sys
 from datetime import datetime, timedelta
 
-import requests
+from curl_cffi import requests as cffi_requests
 
 # =============================================================================
 # Configuration
@@ -36,12 +36,26 @@ COMMON_HEADERS = {
     "Accept": "application/json, text/plain, */*",
     "Content-Type": "application/json",
     "Referer": "https://myess.isoftstone.com.my/",
+    "Origin": "https://myess.isoftstone.com.my/",
+    "Accept-Language": "en-US,en;q=0.9",
+    "sec-ch-ua": '"Not A(Bron";v="8", "Chromium";v="147", "Google Chrome";v="147"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"Windows"',
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-User": "?1",
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/147.0.0.0 Safari/537.36"
     ),
 }
+
+# Browser-like session that impersonates Chrome. curl_cffi presents a
+# Chrome-consistent TLS/JA3 fingerprint and HTTP/2 settings so the endpoint's
+# bot-protection does not flag automated traffic.
+SESSION = cffi_requests.Session(impersonate="chrome")
 
 
 # =============================================================================
@@ -56,7 +70,7 @@ def login(username: str, password: str) -> dict:
     """
     encoded_password = base64.b64encode(password.encode("utf-8")).decode("utf-8")
 
-    resp = requests.post(
+    resp = SESSION.post(
         f"{API_BASE}/login/login",
         json={"username": username, "password": encoded_password},
         headers=COMMON_HEADERS,
@@ -79,7 +93,7 @@ def login(username: str, password: str) -> dict:
 
 def get_last_timecard(app_token: str) -> dict | None:
     """Get the last timecard entry to determine current clock state."""
-    resp = requests.get(
+    resp = SESSION.get(
         f"{API_BASE}/timecard/last",
         headers={**COMMON_HEADERS, "apptoken": app_token},
         timeout=30,
@@ -101,7 +115,7 @@ def get_last_timecard(app_token: str) -> dict | None:
 
 def get_office_list(app_token: str) -> list[dict]:
     """Get the list of available office locations."""
-    resp = requests.get(
+    resp = SESSION.get(
         f"{API_BASE}/staff/officeList",
         headers={**COMMON_HEADERS, "apptoken": app_token},
         timeout=30,
@@ -123,7 +137,7 @@ def get_timecard_by_week(app_token: str, from_date: str, to_date: str) -> list[d
     Returns:
         List of daily timecard entry dicts (typically 7, one per day).
     """
-    resp = requests.get(
+    resp = SESSION.get(
         f"{API_BASE}/timecard/timeCardTableByWeek",
         params={"fromDate": from_date, "toDate": to_date, "staffId": ""},
         headers={**COMMON_HEADERS, "apptoken": app_token},
@@ -151,7 +165,7 @@ def submit_timecard(app_token: str, timecard_entries: list[dict]) -> dict:
     Returns:
         dict with 'success' bool and 'message' str.
     """
-    resp = requests.post(
+    resp = SESSION.post(
         f"{API_BASE}/timecard/staffTimeCardSave",
         params={"staffId": ""},
         json=timecard_entries,
@@ -215,7 +229,7 @@ def clock_action(
         payload["Hours"] = hours
         payload["OriginalDate"] = now.strftime("%Y-%m-%d")
 
-    resp = requests.post(
+    resp = SESSION.post(
         f"{API_BASE}/timecard/newTimeCard",
         json=payload,
         headers={**COMMON_HEADERS, "apptoken": app_token},
