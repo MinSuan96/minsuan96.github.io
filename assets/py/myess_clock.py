@@ -17,6 +17,7 @@ import sys
 from datetime import datetime, timedelta
 
 from curl_cffi import requests as cffi_requests
+from curl_cffi.requests import exceptions as cffi_exceptions
 
 # =============================================================================
 # Configuration
@@ -58,6 +59,20 @@ COMMON_HEADERS = {
 SESSION = cffi_requests.Session(impersonate="chrome")
 
 
+def _api_error(resp) -> str:
+    """Extract a human-readable error message from an API/HTTP response body."""
+    try:
+        data = resp.json()
+    except ValueError:
+        return None
+    if isinstance(data, dict):
+        for key in ("message", "result", "error", "error_description"):
+            value = data.get(key)
+            if value:
+                return str(value)
+    return None
+
+
 # =============================================================================
 # API Functions
 # =============================================================================
@@ -76,7 +91,11 @@ def login(username: str, password: str) -> dict:
         headers=COMMON_HEADERS,
         timeout=30,
     )
-    resp.raise_for_status()
+    try:
+        resp.raise_for_status()
+    except cffi_exceptions.HTTPError:
+        message = _api_error(resp)
+        return {"success": False, "message": message or f"HTTP {resp.status_code}"}
     data = resp.json()
 
     if data.get("statusCode") != 200 or data.get("status") != "OK":
@@ -559,10 +578,10 @@ Examples:
   python myess_clock.py --action in --location Home
   python myess_clock.py --action status          # Check current status
   python myess_clock.py --action submit          # Submit timecard for approval
-  python myess_clock.py -u ISS280 -p mypass --action in
+  python myess_clock.py -u ISS123 -p mypass --action in
         """,
     )
-    parser.add_argument("-u", "--username", help="Staff ID (e.g. ISS280)")
+    parser.add_argument("-u", "--username", help="Staff ID (e.g. ISS123)")
     parser.add_argument("-p", "--password", help="Password")
     parser.add_argument(
         "--action",
@@ -577,11 +596,11 @@ Examples:
     args = parser.parse_args()
 
     # Get credentials (CLI args override defaults)
-    username = args.username or "ISS280"
-    password = args.password or "VRF^G^Vlh!5Mst"
+    username = args.username
+    password = args.password
 
     if not username:
-        username = input("Staff ID (e.g. ISS280): ").strip()
+        username = input("Staff ID (e.g. ISS123): ").strip()
     if not password:
         import getpass
         password = getpass.getpass("Password: ")
@@ -598,37 +617,42 @@ Examples:
     print(f"Logged in as {staff_name}")
 
     # Execute action
-    if args.action is None:
-        # Interactive mode
-        while True:
-            try:
-                interactive_mode(app_token, staff_name)
-                print()
-            except KeyboardInterrupt:
-                print("\nGoodbye!")
-                break
-    elif args.action == "status":
-        last_entry = get_last_timecard(app_token)
-        print("\nCurrent Status:")
-        print_status(last_entry)
-    elif args.action == "in":
-        last_entry = get_last_timecard(app_token)
-        if last_entry and last_entry["type"] == 1:
-            print("\nYou are already clocked in!")
+    try:
+        if args.action is None:
+            # Interactive mode
+            while True:
+                try:
+                    interactive_mode(app_token, staff_name)
+                    print()
+                except KeyboardInterrupt:
+                    print("\nGoodbye!")
+                    break
+        elif args.action == "status":
+            last_entry = get_last_timecard(app_token)
+            print("\nCurrent Status:")
             print_status(last_entry)
-            confirm = input("Clock in again anyway? (y/N): ").strip().lower()
-            if confirm != "y":
+        elif args.action == "in":
+            last_entry = get_last_timecard(app_token)
+            if last_entry and last_entry["type"] == 1:
+                print("\nYou are already clocked in!")
+                print_status(last_entry)
+                confirm = input("Clock in anyway? (y/N): ").strip().lower()
+                if confirm != "y":
+                    sys.exit(0)
+            do_clock_in(app_token, location=args.location, remarks=args.remarks)
+        elif args.action == "out":
+            last_entry = get_last_timecard(app_token)
+            if last_entry and last_entry["type"] == 2:
+                print("\nYou are already clocked out!")
+                print_status(last_entry)
                 sys.exit(0)
-        do_clock_in(app_token, location=args.location, remarks=args.remarks)
-    elif args.action == "out":
-        last_entry = get_last_timecard(app_token)
-        if last_entry and last_entry["type"] == 2:
-            print("\nYou are already clocked out!")
-            print_status(last_entry)
-            sys.exit(0)
-        do_clock_out(app_token, last_entry, location=args.location, remarks=args.remarks)
-    elif args.action == "submit":
-        do_submit_timecard(app_token)
+            do_clock_out(app_token, last_entry, location=args.location, remarks=args.remarks)
+        elif args.action == "submit":
+            do_submit_timecard(app_token)
+    except cffi_exceptions.RequestException as exc:
+        message = _api_error(exc.response) if getattr(exc, "response", None) else None
+        print(f"\nError: {message or exc}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
