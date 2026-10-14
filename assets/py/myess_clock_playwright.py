@@ -4,11 +4,15 @@ MyESS Clock In/Out Script
 Automates clock-in and clock-out for MyESS (iSoftStone Malaysia).
 
 A real headless Chromium (via Playwright) is used instead of a plain HTTP
-client: the app is loaded in the browser first so it solves the Imunify360
-WebShield challenge and holds the clearance cookie, then every operation is
-issued as a fetch() from inside that page. That request is the frontend's own
-request (same origin, cookies, TLS/HTTP2 fingerprint, UA), so the bot
-protection accepts it.
+client: the browser first loads a JSON endpoint on the API host so Chrome
+solves the Imunify360 WebShield challenge and holds that host's clearance
+cookie, then every operation is issued as a same-origin fetch() from inside
+that page. Same-origin requests need no CORS preflight (WebShield would
+otherwise answer the preflight with its challenge page, breaking the fetch),
+and the browser's real TLS/HTTP2 fingerprint plus the clearance cookie pass
+the bot protection. A normal Chrome user-agent is required: WebShield's
+challenge runs userAgentCheck/appVersionCheck and fails HeadlessChrome's
+default UA.
 
 Usage:
     python myess_clock.py              # Interactive mode
@@ -31,7 +35,18 @@ from playwright.sync_api import sync_playwright
 # Configuration
 # =============================================================================
 API_BASE = "https://api.myess.isoftstone.com.my/api/index.php"
-SPA_BASE_URL = "https://myess.isoftstone.com.my/"
+
+# A JSON endpoint on the API host. Loading it triggers WebShield's JS
+# challenge (which auto-solves by reloading) and leaves the page on the API
+# host itself, so every later fetch is same-origin.
+CLEAR_URL = API_BASE + "/timecard/last"
+
+# WebShield's challenge rejects HeadlessChrome's default UA, so a plain
+# Chrome UA must be set explicitly on the browser context.
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+)
 
 # Default location for clock-in/out. Change to your preferred location.
 # Available locations: "MENARA 1", "Client", "Home", "11A", "11E", etc.
@@ -64,15 +79,51 @@ def _is_blocked(text: str) -> bool:
     return "access denied by imunify360" in lowered or "imunify360 bot-protection" in lowered
 
 
+def _is_challenge(text: str) -> bool:
+    """True if a page body is the WebShield 'One moment, please...' JS
+    challenge interstitial (not yet solved)."""
+    lowered = (text or "").lower()
+    return (
+        "one moment, please" in lowered
+        or "request is being verified" in lowered
+        or "wsidchk" in lowered
+    )
+
+
+def _wait_challenge_cleared(attempts: int = 8) -> bool:
+    """Wait for the WebShield challenge interstitial to auto-solve (the page
+    reloads itself every ~5s). Returns True once the page is no longer a
+    challenge or denial."""
+    for _ in range(attempts):
+        try:
+            content = _PAGE.content()
+        except Exception:
+            content = ""
+        if not _is_challenge(content) and not _is_blocked(content):
+            return True
+        _PAGE.wait_for_timeout(5000)
+        try:
+            _PAGE.wait_for_load_state("domcontentloaded", timeout=10000)
+        except Exception:
+            pass
+    try:
+        content = _PAGE.content()
+    except Exception:
+        return False
+    return not _is_challenge(content) and not _is_blocked(content)
+
+
 def open_session():
-    """Launch a headless persistent Chromium and load the SPA so the
-    Imunify360 challenge is solved before any API call is made."""
+    """Launch a headless persistent Chromium and load the API host so the
+    Imunify360 challenge is solved before any API call is made. The page is
+    left on the API host so all later fetches are same-origin."""
     global _PLAYWRIGHT, _CONTEXT, _PAGE
 
     _PLAYWRIGHT = sync_playwright().start()
     _CONTEXT = _PLAYWRIGHT.chromium.launch_persistent_context(
         PROFILE_DIR,
         headless=True,
+        user_agent=USER_AGENT,
         args=[
             "--no-sandbox",
             "--disable-dev-shm-usage",
@@ -86,17 +137,13 @@ def open_session():
     _PAGE = _CONTEXT.pages[0] if _CONTEXT.pages else _CONTEXT.new_page()
 
     for attempt in range(3):
-        _PAGE.goto(SPA_BASE_URL, wait_until="domcontentloaded", timeout=60000)
-        try:
-            _PAGE.wait_for_load_state("networkidle", timeout=30000)
-        except Exception:
-            pass
-        if not _is_blocked(_PAGE.content()):
+        _PAGE.goto(CLEAR_URL, wait_until="domcontentloaded", timeout=60000)
+        if _wait_challenge_cleared():
             return
         _PAGE.wait_for_timeout(2000)
 
     raise MyESSError(
-        "Blocked by the Imunify360 challenge screen; could not reach the app."
+        "Blocked by the Imunify360 challenge screen; could not reach the API."
     )
 
 
@@ -127,8 +174,9 @@ _FETCH_JS = """a => fetch(a.url, {
 
 
 def _fetch(path: str, method: str = "GET", body=None, token: str = None, _retry: bool = True) -> dict:
-    """Issue a request from inside the loaded SPA page (so it carries the
-    browser's cookies, origin and fingerprint). Returns {status, text}."""
+    """Issue a same-origin request from inside the API-host page (so it
+    carries the browser's cookies, origin and fingerprint). Returns
+    {status, text}."""
     headers = {}
     if token:
         headers["apptoken"] = token
@@ -143,11 +191,12 @@ def _fetch(path: str, method: str = "GET", body=None, token: str = None, _retry:
     }
     out = _PAGE.evaluate(_FETCH_JS, arg)
 
-    # If the API host challenges independently, navigate it once so Chrome
-    # auto-solves that host, then retry the request a single time.
-    if _retry and _is_blocked(out.get("text", "")):
+    # If the API host's clearance expired and it challenges again, re-navigate
+    # to the clearance endpoint so Chrome auto-solves it, then retry once.
+    if _retry and (_is_blocked(out.get("text", "")) or _is_challenge(out.get("text", ""))):
         try:
-            _PAGE.goto(API_BASE, wait_until="domcontentloaded", timeout=60000)
+            _PAGE.goto(CLEAR_URL, wait_until="domcontentloaded", timeout=60000)
+            _wait_challenge_cleared()
         except Exception:
             pass
         return _fetch(path, method, body, token, _retry=False)
