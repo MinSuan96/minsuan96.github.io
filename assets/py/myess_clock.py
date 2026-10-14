@@ -3,13 +3,6 @@
 MyESS Clock In/Out Script
 Automates clock-in and clock-out for MyESS (iSoftStone Malaysia).
 
-A real headless Chromium (via Playwright) is used instead of a plain HTTP
-client: the app is loaded in the browser first so it solves the Imunify360
-WebShield challenge and holds the clearance cookie, then every operation is
-issued as a fetch() from inside that page. That request is the frontend's own
-request (same origin, cookies, TLS/HTTP2 fingerprint, UA), so the bot
-protection accepts it.
-
 Usage:
     python myess_clock.py              # Interactive mode
     python myess_clock.py --action in  # Clock in directly
@@ -20,18 +13,16 @@ Usage:
 import argparse
 import base64
 import json
-import os
 import sys
 from datetime import datetime, timedelta
-from urllib.parse import urlencode
 
-from playwright.sync_api import sync_playwright
+from curl_cffi import requests as cffi_requests
+from curl_cffi.requests import exceptions as cffi_exceptions
 
 # =============================================================================
 # Configuration
 # =============================================================================
 API_BASE = "https://api.myess.isoftstone.com.my/api/index.php"
-SPA_BASE_URL = "https://myess.isoftstone.com.my/"
 
 # Default location for clock-in/out. Change to your preferred location.
 # Available locations: "MENARA 1", "Client", "Home", "11A", "11E", etc.
@@ -41,146 +32,45 @@ DEFAULT_LOCATION = "MENARA 1"
 DEFAULT_LAT = 3.1336711
 DEFAULT_LNG = 101.6863413
 
-# Persistent browser profile so the WebShield clearance cookie is reused
-# across runs (fewer challenges, behaves like a returning browser).
-PROFILE_DIR = os.path.join(os.path.expanduser("~"), ".myess_profile")
+# Common headers required by the API (mimics the web app's requests).
+COMMON_HEADERS = {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    "Referer": "https://myess.isoftstone.com.my/",
+    "Origin": "https://myess.isoftstone.com.my/",
+    "Accept-Language": "en-US,en;q=0.9",
+    "sec-ch-ua": '"Not A(Bron";v="8", "Chromium";v="147", "Google Chrome";v="147"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"Windows"',
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-User": "?1",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/147.0.0.0 Safari/537.36"
+    ),
+}
 
-# Playwright-managed browser session (a real Chromium page).
-_PLAYWRIGHT = None
-_CONTEXT = None
-_PAGE = None
-
-
-class MyESSError(RuntimeError):
-    """Raised when the API rejects a request (HTTP error or bot-protection)."""
-
-
-# =============================================================================
-# Browser Session
-# =============================================================================
-def _is_blocked(text: str) -> bool:
-    """True if a page/response body is an Imunify360 challenge or denial."""
-    lowered = (text or "").lower()
-    return "access denied by imunify360" in lowered or "imunify360 bot-protection" in lowered
-
-
-def open_session():
-    """Launch a headless persistent Chromium and load the SPA so the
-    Imunify360 challenge is solved before any API call is made."""
-    global _PLAYWRIGHT, _CONTEXT, _PAGE
-
-    _PLAYWRIGHT = sync_playwright().start()
-    _CONTEXT = _PLAYWRIGHT.chromium.launch_persistent_context(
-        PROFILE_DIR,
-        headless=True,
-        args=[
-            "--no-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-blink-features=AutomationControlled",
-        ],
-        ignore_default_args=["--enable-automation"],
-    )
-    _CONTEXT.add_init_script(
-        "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
-    )
-    _PAGE = _CONTEXT.pages[0] if _CONTEXT.pages else _CONTEXT.new_page()
-
-    for attempt in range(3):
-        _PAGE.goto(SPA_BASE_URL, wait_until="domcontentloaded", timeout=60000)
-        try:
-            _PAGE.wait_for_load_state("networkidle", timeout=30000)
-        except Exception:
-            pass
-        if not _is_blocked(_PAGE.content()):
-            return
-        _PAGE.wait_for_timeout(2000)
-
-    raise MyESSError(
-        "Blocked by the Imunify360 challenge screen; could not reach the app."
-    )
+# Browser-like session that impersonates Chrome. curl_cffi presents a
+# Chrome-consistent TLS/JA3 fingerprint and HTTP/2 settings so the endpoint's
+# bot-protection does not flag automated traffic.
+SESSION = cffi_requests.Session(impersonate="chrome")
 
 
-def close_session():
-    """Shut down the browser and Playwright driver."""
-    global _PLAYWRIGHT, _CONTEXT, _PAGE
+def _api_error(resp) -> str:
+    """Extract a human-readable error message from an API/HTTP response body."""
     try:
-        if _CONTEXT:
-            _CONTEXT.close()
-    except Exception:
-        pass
-    try:
-        if _PLAYWRIGHT:
-            _PLAYWRIGHT.stop()
-    except Exception:
-        pass
-    _CONTEXT = None
-    _PAGE = None
-    _PLAYWRIGHT = None
-
-
-_FETCH_JS = """a => fetch(a.url, {
-    method: a.method,
-    credentials: 'include',
-    headers: a.headers,
-    body: a.body
-}).then(r => r.text().then(t => ({status: r.status, text: t})))"""
-
-
-def _fetch(path: str, method: str = "GET", body=None, token: str = None, _retry: bool = True) -> dict:
-    """Issue a request from inside the loaded SPA page (so it carries the
-    browser's cookies, origin and fingerprint). Returns {status, text}."""
-    headers = {}
-    if token:
-        headers["apptoken"] = token
-    if method != "GET":
-        headers["Content-Type"] = "application/json"
-
-    arg = {
-        "url": API_BASE + path,
-        "method": method,
-        "headers": headers,
-        "body": None if body is None else json.dumps(body),
-    }
-    out = _PAGE.evaluate(_FETCH_JS, arg)
-
-    # If the API host challenges independently, navigate it once so Chrome
-    # auto-solves that host, then retry the request a single time.
-    if _retry and _is_blocked(out.get("text", "")):
-        try:
-            _PAGE.goto(API_BASE, wait_until="domcontentloaded", timeout=60000)
-        except Exception:
-            pass
-        return _fetch(path, method, body, token, _retry=False)
-    return out
-
-
-def _parse(out: dict):
-    """Return (parsed_json_or_None, raw_text) from a _fetch result."""
-    text = out.get("text", "")
-    try:
-        return json.loads(text), text
+        data = resp.json()
     except ValueError:
-        return None, text
-
-
-def _api_error(data) -> str:
-    """Extract a human-readable error message from a parsed API body."""
+        return None
     if isinstance(data, dict):
         for key in ("message", "result", "error", "error_description"):
             value = data.get(key)
             if value:
                 return str(value)
     return None
-
-
-def _ensure_ok(out: dict):
-    """Parse a _fetch result, raising MyESSError on a challenge or HTTP error."""
-    data, text = _parse(out)
-    if _is_blocked(text):
-        raise MyESSError("Access denied by Imunify360 bot-protection.")
-    if out.get("status", 0) >= 400:
-        raise MyESSError(_api_error(data) or f"HTTP {out.get('status')}")
-    return data
 
 
 # =============================================================================
@@ -195,17 +85,19 @@ def login(username: str, password: str) -> dict:
     """
     encoded_password = base64.b64encode(password.encode("utf-8")).decode("utf-8")
 
-    out = _fetch(
-        "/login/login",
-        method="POST",
-        body={"username": username, "password": encoded_password},
+    resp = SESSION.post(
+        f"{API_BASE}/login/login",
+        json={"username": username, "password": encoded_password},
+        headers=COMMON_HEADERS,
+        timeout=30,
     )
-    data, text = _parse(out)
+    try:
+        resp.raise_for_status()
+    except cffi_exceptions.HTTPError:
+        message = _api_error(resp)
+        return {"success": False, "message": message or f"HTTP {resp.status_code}"}
+    data = resp.json()
 
-    if _is_blocked(text):
-        return {"success": False, "message": "Access denied by Imunify360 bot-protection."}
-    if data is None:
-        return {"success": False, "message": f"HTTP {out.get('status')}"}
     if data.get("statusCode") != 200 or data.get("status") != "OK":
         return {"success": False, "message": data.get("result", "Login failed")}
 
@@ -220,10 +112,15 @@ def login(username: str, password: str) -> dict:
 
 def get_last_timecard(app_token: str) -> dict | None:
     """Get the last timecard entry to determine current clock state."""
-    out = _fetch("/timecard/last", token=app_token)
-    data = _ensure_ok(out)
+    resp = SESSION.get(
+        f"{API_BASE}/timecard/last",
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
 
-    if data and data.get("statusCode") == 200 and data.get("result"):
+    if data.get("statusCode") == 200 and data.get("result"):
         entry = data["result"][0]
         return {
             "type": int(entry["Type"]),  # 1 = clock-in, 2 = clock-out
@@ -237,9 +134,14 @@ def get_last_timecard(app_token: str) -> dict | None:
 
 def get_office_list(app_token: str) -> list[dict]:
     """Get the list of available office locations."""
-    out = _fetch("/staff/officeList", token=app_token)
-    data = _ensure_ok(out)
-    return data.get("result", []) if data else []
+    resp = SESSION.get(
+        f"{API_BASE}/staff/officeList",
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("result", [])
 
 
 def get_timecard_by_week(app_token: str, from_date: str, to_date: str) -> list[dict]:
@@ -254,11 +156,16 @@ def get_timecard_by_week(app_token: str, from_date: str, to_date: str) -> list[d
     Returns:
         List of daily timecard entry dicts (typically 7, one per day).
     """
-    query = urlencode({"fromDate": from_date, "toDate": to_date, "staffId": ""})
-    out = _fetch(f"/timecard/timeCardTableByWeek?{query}", token=app_token)
-    data = _ensure_ok(out)
+    resp = SESSION.get(
+        f"{API_BASE}/timecard/timeCardTableByWeek",
+        params={"fromDate": from_date, "toDate": to_date, "staffId": ""},
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
 
-    if data and data.get("statusCode") == 200:
+    if data.get("statusCode") == 200:
         return data.get("result", [])
     return []
 
@@ -277,16 +184,17 @@ def submit_timecard(app_token: str, timecard_entries: list[dict]) -> dict:
     Returns:
         dict with 'success' bool and 'message' str.
     """
-    query = urlencode({"staffId": ""})
-    out = _fetch(
-        f"/timecard/staffTimeCardSave?{query}",
-        method="POST",
-        body=timecard_entries,
-        token=app_token,
+    resp = SESSION.post(
+        f"{API_BASE}/timecard/staffTimeCardSave",
+        params={"staffId": ""},
+        json=timecard_entries,
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
     )
-    data = _ensure_ok(out)
+    resp.raise_for_status()
+    data = resp.json()
 
-    if data and data.get("statusCode") == 200 and data.get("status") == "OK":
+    if data.get("statusCode") == 200 and data.get("status") == "OK":
         result = data.get("result", {})
         saved = result.get("saved_records", 0)
         total = result.get("total_records", 0)
@@ -295,7 +203,7 @@ def submit_timecard(app_token: str, timecard_entries: list[dict]) -> dict:
             "message": result.get("message", f"Saved {saved}/{total} records"),
         }
 
-    return {"success": False, "message": (data.get("result") if data else None) or "Submit failed"}
+    return {"success": False, "message": data.get("result", "Submit failed")}
 
 
 def clock_action(
@@ -340,14 +248,20 @@ def clock_action(
         payload["Hours"] = hours
         payload["OriginalDate"] = now.strftime("%Y-%m-%d")
 
-    out = _fetch("/timecard/newTimeCard", method="POST", body=payload, token=app_token)
-    data = _ensure_ok(out)
+    resp = SESSION.post(
+        f"{API_BASE}/timecard/newTimeCard",
+        json=payload,
+        headers={**COMMON_HEADERS, "apptoken": app_token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
 
-    if data and data.get("statusCode") == 200 and data.get("status") == "OK":
+    if data.get("statusCode") == 200 and data.get("status") == "OK":
         action_name = "Clock-In" if action_type == 1 else "Clock-Out"
         return {"success": True, "message": f"{action_name} successful!"}
 
-    return {"success": False, "message": (data.get("result") if data else None) or "Action failed"}
+    return {"success": False, "message": data.get("result", "Action failed")}
 
 
 # =============================================================================
@@ -691,27 +605,19 @@ Examples:
         import getpass
         password = getpass.getpass("Password: ")
 
-    # Start the browser session (solves the Imunify360 challenge)
-    try:
-        open_session()
-    except MyESSError as exc:
-        print(f"\nError: {exc}")
-        close_session()
+    # Login
+    print("\nLogging in...")
+    login_result = login(username, password)
+    if not login_result["success"]:
+        print(f"Login failed: {login_result['message']}")
         sys.exit(1)
 
+    app_token = login_result["app_token"]
+    staff_name = login_result["staff_name"]
+    print(f"Logged in as {staff_name}")
+
+    # Execute action
     try:
-        # Login
-        print("\nLogging in...")
-        login_result = login(username, password)
-        if not login_result["success"]:
-            print(f"Login failed: {login_result['message']}")
-            sys.exit(1)
-
-        app_token = login_result["app_token"]
-        staff_name = login_result["staff_name"]
-        print(f"Logged in as {staff_name}")
-
-        # Execute action
         if args.action is None:
             # Interactive mode
             while True:
@@ -743,11 +649,10 @@ Examples:
             do_clock_out(app_token, last_entry, location=args.location, remarks=args.remarks)
         elif args.action == "submit":
             do_submit_timecard(app_token)
-    except MyESSError as exc:
-        print(f"\nError: {exc}")
+    except cffi_exceptions.RequestException as exc:
+        message = _api_error(exc.response) if getattr(exc, "response", None) else None
+        print(f"\nError: {message or exc}")
         sys.exit(1)
-    finally:
-        close_session()
 
 
 if __name__ == "__main__":
